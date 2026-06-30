@@ -4,7 +4,7 @@ format:
   html:
     theme: [cosmo, theme.scss]
     page-layout: full
-    self-contained: true
+    self-contained: false
 ---
 
 <head>
@@ -102,19 +102,116 @@ fig_aapl.update_layout(
 fig_aapl.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
 fig_aapl.show(config={'scrollZoom': True})
 ```
+
 </div>
 :::
 
 <hr/>
 
-## Microsoft Corp. (MSFT)
+
+## Starbucks Corporation (SBUX)
+
+::: {.column-screen}
+<div id="chart-container-sbux" class="chart-wrapper">
+<div class="chart-toolbar">
+<div class="toolbar-left">
+<span class="ticker-badge">SBUX</span>
+<span class="ticker-title">Starbucks Corporation</span>
+<span class="divider">|</span>
+<div class="indicator-buttons">
+<button class="tool-btn active" id="btn-sma-sbux" onclick="toggleIndicators('sma', 'sbux')">SMA Lines</button>
+<button class="tool-btn" id="btn-bb-sbux" onclick="toggleIndicators('bb', 'sbux')">Bollinger Bands</button>
+<button class="tool-btn" id="btn-all-sbux" onclick="toggleIndicators('all', 'sbux')">Show All</button>
+<button class="tool-btn" id="btn-clear-sbux" onclick="toggleIndicators('clear', 'sbux')">Price Only</button>
+</div>
+</div>
+<button id="fullscreen-btn-sbux" onclick="toggleFullscreen('sbux')">⛶ Full Screen</button>
+</div>
+
+```{python}
+#| label: chart-sbux
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+# Load dataset
+df_sbux = pd.read_csv("../downloads/sbux_enriched.csv")
+df_sbux['date'] = pd.to_datetime(df_sbux['date'])
+
+# Create subplots
+fig_sbux = make_subplots(
+    rows=2, cols=1, 
+    shared_xaxes=True, 
+    vertical_spacing=0.03,
+    subplot_titles=('Price & Technical Indicators', 'Volume'),
+    row_width=[0.2, 0.8]
+)
+
+colors_sbux = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_sbux.iterrows()]
+
+# 1. Candlestick
+fig_sbux.add_trace(
+    go.Candlestick(
+        x=df_sbux['date'], open=df_sbux['open'], high=df_sbux['high'], low=df_sbux['low'], close=df_sbux['close'],
+        name='SBUX Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
+        increasing_fillcolor='#26a69a', decreasing_fillcolor='#ef5350', showlegend=True
+    ), row=1, col=1
+)
+
+# 2. SMAs
+fig_sbux.add_trace(go.Scatter(x=df_sbux['date'], y=df_sbux['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
+fig_sbux.add_trace(go.Scatter(x=df_sbux['date'], y=df_sbux['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
+fig_sbux.add_trace(go.Scatter(x=df_sbux['date'], y=df_sbux['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
+
+# 3. Bollinger Bands
+fig_sbux.add_trace(go.Scatter(x=df_sbux['date'], y=df_sbux['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
+fig_sbux.add_trace(go.Scatter(x=df_sbux['date'], y=df_sbux['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
+
+# 4. Volume
+fig_sbux.add_trace(go.Bar(x=df_sbux['date'], y=df_sbux['volume'], name='Volume', marker=dict(color=colors_sbux, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+
+fig_sbux.update_layout(
+    template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
+    xaxis=dict(
+        rangeslider=dict(visible=False),
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1M", step="month", stepmode="backward"),
+                dict(count=3, label="3M", step="month", stepmode="backward"),
+                dict(count=6, label="6M", step="month", stepmode="backward"),
+                dict(count=1, label="1Y", step="year", stepmode="backward"),
+                dict(count=5, label="5Y", step="year", stepmode="backward"),
+                dict(step="all", label="MAX")
+            ]),
+            bgcolor='#141824', activecolor='#2962ff', font=dict(color='#d1d4dc', size=11), bordercolor='#202637', borderwidth=1
+        )
+    ),
+    yaxis=dict(gridcolor='#202637', zerolinecolor='#202637', tickprefix='$', title='Price (USD)', fixedrange=True),
+    yaxis2=dict(gridcolor='#202637', zerolinecolor='#202637', title='Volume', fixedrange=True),
+    legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)')
+)
+fig_sbux.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
+fig_sbux.show(config={'scrollZoom': True})
+```
+
+</div>
+:::
+
+<hr/>
+
+
+## Microsoft Corporation (MSFT)
 
 ::: {.column-screen}
 <div id="chart-container-msft" class="chart-wrapper">
 <div class="chart-toolbar">
 <div class="toolbar-left">
 <span class="ticker-badge">MSFT</span>
-<span class="ticker-title">Microsoft Corp.</span>
+<span class="ticker-title">Microsoft Corporation</span>
 <span class="divider">|</span>
 <div class="indicator-buttons">
 <button class="tool-btn active" id="btn-sma-msft" onclick="toggleIndicators('sma', 'msft')">SMA Lines</button>
@@ -131,6 +228,10 @@ fig_aapl.show(config={'scrollZoom': True})
 #| echo: false
 #| warning: false
 #| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 # Load dataset
 df_msft = pd.read_csv("../downloads/msft_enriched.csv")
@@ -191,42 +292,48 @@ fig_msft.update_layout(
 fig_msft.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
 fig_msft.show(config={'scrollZoom': True})
 ```
+
 </div>
 :::
 
 <hr/>
 
-## NVIDIA Corp. (NVDA)
+
+## Cisco Systems, Inc. (CSCO)
 
 ::: {.column-screen}
-<div id="chart-container-nvda" class="chart-wrapper">
+<div id="chart-container-csco" class="chart-wrapper">
 <div class="chart-toolbar">
 <div class="toolbar-left">
-<span class="ticker-badge">NVDA</span>
-<span class="ticker-title">NVIDIA Corp.</span>
+<span class="ticker-badge">CSCO</span>
+<span class="ticker-title">Cisco Systems, Inc.</span>
 <span class="divider">|</span>
 <div class="indicator-buttons">
-<button class="tool-btn active" id="btn-sma-nvda" onclick="toggleIndicators('sma', 'nvda')">SMA Lines</button>
-<button class="tool-btn" id="btn-bb-nvda" onclick="toggleIndicators('bb', 'nvda')">Bollinger Bands</button>
-<button class="tool-btn" id="btn-all-nvda" onclick="toggleIndicators('all', 'nvda')">Show All</button>
-<button class="tool-btn" id="btn-clear-nvda" onclick="toggleIndicators('clear', 'nvda')">Price Only</button>
+<button class="tool-btn active" id="btn-sma-csco" onclick="toggleIndicators('sma', 'csco')">SMA Lines</button>
+<button class="tool-btn" id="btn-bb-csco" onclick="toggleIndicators('bb', 'csco')">Bollinger Bands</button>
+<button class="tool-btn" id="btn-all-csco" onclick="toggleIndicators('all', 'csco')">Show All</button>
+<button class="tool-btn" id="btn-clear-csco" onclick="toggleIndicators('clear', 'csco')">Price Only</button>
 </div>
 </div>
-<button id="fullscreen-btn-nvda" onclick="toggleFullscreen('nvda')">⛶ Full Screen</button>
+<button id="fullscreen-btn-csco" onclick="toggleFullscreen('csco')">⛶ Full Screen</button>
 </div>
 
 ```{python}
-#| label: chart-nvda
+#| label: chart-csco
 #| echo: false
 #| warning: false
 #| message: false
 
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
 # Load dataset
-df_nvda = pd.read_csv("../downloads/nvda_enriched.csv")
-df_nvda['date'] = pd.to_datetime(df_nvda['date'])
+df_csco = pd.read_csv("../downloads/csco_enriched.csv")
+df_csco['date'] = pd.to_datetime(df_csco['date'])
 
 # Create subplots
-fig_nvda = make_subplots(
+fig_csco = make_subplots(
     rows=2, cols=1, 
     shared_xaxes=True, 
     vertical_spacing=0.03,
@@ -234,30 +341,30 @@ fig_nvda = make_subplots(
     row_width=[0.2, 0.8]
 )
 
-colors_nvda = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_nvda.iterrows()]
+colors_csco = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_csco.iterrows()]
 
 # 1. Candlestick
-fig_nvda.add_trace(
+fig_csco.add_trace(
     go.Candlestick(
-        x=df_nvda['date'], open=df_nvda['open'], high=df_nvda['high'], low=df_nvda['low'], close=df_nvda['close'],
-        name='NVDA Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
+        x=df_csco['date'], open=df_csco['open'], high=df_csco['high'], low=df_csco['low'], close=df_csco['close'],
+        name='CSCO Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
         increasing_fillcolor='#26a69a', decreasing_fillcolor='#ef5350', showlegend=True
     ), row=1, col=1
 )
 
 # 2. SMAs
-fig_nvda.add_trace(go.Scatter(x=df_nvda['date'], y=df_nvda['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
-fig_nvda.add_trace(go.Scatter(x=df_nvda['date'], y=df_nvda['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
-fig_nvda.add_trace(go.Scatter(x=df_nvda['date'], y=df_nvda['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
+fig_csco.add_trace(go.Scatter(x=df_csco['date'], y=df_csco['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
+fig_csco.add_trace(go.Scatter(x=df_csco['date'], y=df_csco['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
+fig_csco.add_trace(go.Scatter(x=df_csco['date'], y=df_csco['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
 
 # 3. Bollinger Bands
-fig_nvda.add_trace(go.Scatter(x=df_nvda['date'], y=df_nvda['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
-fig_nvda.add_trace(go.Scatter(x=df_nvda['date'], y=df_nvda['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
+fig_csco.add_trace(go.Scatter(x=df_csco['date'], y=df_csco['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
+fig_csco.add_trace(go.Scatter(x=df_csco['date'], y=df_csco['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
 
 # 4. Volume
-fig_nvda.add_trace(go.Bar(x=df_nvda['date'], y=df_nvda['volume'], name='Volume', marker=dict(color=colors_nvda, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+fig_csco.add_trace(go.Bar(x=df_csco['date'], y=df_csco['volume'], name='Volume', marker=dict(color=colors_csco, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
 
-fig_nvda.update_layout(
+fig_csco.update_layout(
     template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
     xaxis=dict(
         rangeslider=dict(visible=False),
@@ -277,13 +384,300 @@ fig_nvda.update_layout(
     yaxis2=dict(gridcolor='#202637', zerolinecolor='#202637', title='Volume', fixedrange=True),
     legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)')
 )
-fig_nvda.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
-fig_nvda.show(config={'scrollZoom': True})
+fig_csco.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
+fig_csco.show(config={'scrollZoom': True})
 ```
+
 </div>
 :::
 
 <hr/>
+
+
+## QUALCOMM Incorporated (QCOM)
+
+::: {.column-screen}
+<div id="chart-container-qcom" class="chart-wrapper">
+<div class="chart-toolbar">
+<div class="toolbar-left">
+<span class="ticker-badge">QCOM</span>
+<span class="ticker-title">QUALCOMM Incorporated</span>
+<span class="divider">|</span>
+<div class="indicator-buttons">
+<button class="tool-btn active" id="btn-sma-qcom" onclick="toggleIndicators('sma', 'qcom')">SMA Lines</button>
+<button class="tool-btn" id="btn-bb-qcom" onclick="toggleIndicators('bb', 'qcom')">Bollinger Bands</button>
+<button class="tool-btn" id="btn-all-qcom" onclick="toggleIndicators('all', 'qcom')">Show All</button>
+<button class="tool-btn" id="btn-clear-qcom" onclick="toggleIndicators('clear', 'qcom')">Price Only</button>
+</div>
+</div>
+<button id="fullscreen-btn-qcom" onclick="toggleFullscreen('qcom')">⛶ Full Screen</button>
+</div>
+
+```{python}
+#| label: chart-qcom
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+# Load dataset
+df_qcom = pd.read_csv("../downloads/qcom_enriched.csv")
+df_qcom['date'] = pd.to_datetime(df_qcom['date'])
+
+# Create subplots
+fig_qcom = make_subplots(
+    rows=2, cols=1, 
+    shared_xaxes=True, 
+    vertical_spacing=0.03,
+    subplot_titles=('Price & Technical Indicators', 'Volume'),
+    row_width=[0.2, 0.8]
+)
+
+colors_qcom = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_qcom.iterrows()]
+
+# 1. Candlestick
+fig_qcom.add_trace(
+    go.Candlestick(
+        x=df_qcom['date'], open=df_qcom['open'], high=df_qcom['high'], low=df_qcom['low'], close=df_qcom['close'],
+        name='QCOM Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
+        increasing_fillcolor='#26a69a', decreasing_fillcolor='#ef5350', showlegend=True
+    ), row=1, col=1
+)
+
+# 2. SMAs
+fig_qcom.add_trace(go.Scatter(x=df_qcom['date'], y=df_qcom['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
+fig_qcom.add_trace(go.Scatter(x=df_qcom['date'], y=df_qcom['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
+fig_qcom.add_trace(go.Scatter(x=df_qcom['date'], y=df_qcom['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
+
+# 3. Bollinger Bands
+fig_qcom.add_trace(go.Scatter(x=df_qcom['date'], y=df_qcom['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
+fig_qcom.add_trace(go.Scatter(x=df_qcom['date'], y=df_qcom['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
+
+# 4. Volume
+fig_qcom.add_trace(go.Bar(x=df_qcom['date'], y=df_qcom['volume'], name='Volume', marker=dict(color=colors_qcom, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+
+fig_qcom.update_layout(
+    template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
+    xaxis=dict(
+        rangeslider=dict(visible=False),
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1M", step="month", stepmode="backward"),
+                dict(count=3, label="3M", step="month", stepmode="backward"),
+                dict(count=6, label="6M", step="month", stepmode="backward"),
+                dict(count=1, label="1Y", step="year", stepmode="backward"),
+                dict(count=5, label="5Y", step="year", stepmode="backward"),
+                dict(step="all", label="MAX")
+            ]),
+            bgcolor='#141824', activecolor='#2962ff', font=dict(color='#d1d4dc', size=11), bordercolor='#202637', borderwidth=1
+        )
+    ),
+    yaxis=dict(gridcolor='#202637', zerolinecolor='#202637', tickprefix='$', title='Price (USD)', fixedrange=True),
+    yaxis2=dict(gridcolor='#202637', zerolinecolor='#202637', title='Volume', fixedrange=True),
+    legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)')
+)
+fig_qcom.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
+fig_qcom.show(config={'scrollZoom': True})
+```
+
+</div>
+:::
+
+<hr/>
+
+
+## Meta Platforms, Inc. (META)
+
+::: {.column-screen}
+<div id="chart-container-meta" class="chart-wrapper">
+<div class="chart-toolbar">
+<div class="toolbar-left">
+<span class="ticker-badge">META</span>
+<span class="ticker-title">Meta Platforms, Inc.</span>
+<span class="divider">|</span>
+<div class="indicator-buttons">
+<button class="tool-btn active" id="btn-sma-meta" onclick="toggleIndicators('sma', 'meta')">SMA Lines</button>
+<button class="tool-btn" id="btn-bb-meta" onclick="toggleIndicators('bb', 'meta')">Bollinger Bands</button>
+<button class="tool-btn" id="btn-all-meta" onclick="toggleIndicators('all', 'meta')">Show All</button>
+<button class="tool-btn" id="btn-clear-meta" onclick="toggleIndicators('clear', 'meta')">Price Only</button>
+</div>
+</div>
+<button id="fullscreen-btn-meta" onclick="toggleFullscreen('meta')">⛶ Full Screen</button>
+</div>
+
+```{python}
+#| label: chart-meta
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+# Load dataset
+df_meta = pd.read_csv("../downloads/meta_enriched.csv")
+df_meta['date'] = pd.to_datetime(df_meta['date'])
+
+# Create subplots
+fig_meta = make_subplots(
+    rows=2, cols=1, 
+    shared_xaxes=True, 
+    vertical_spacing=0.03,
+    subplot_titles=('Price & Technical Indicators', 'Volume'),
+    row_width=[0.2, 0.8]
+)
+
+colors_meta = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_meta.iterrows()]
+
+# 1. Candlestick
+fig_meta.add_trace(
+    go.Candlestick(
+        x=df_meta['date'], open=df_meta['open'], high=df_meta['high'], low=df_meta['low'], close=df_meta['close'],
+        name='META Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
+        increasing_fillcolor='#26a69a', decreasing_fillcolor='#ef5350', showlegend=True
+    ), row=1, col=1
+)
+
+# 2. SMAs
+fig_meta.add_trace(go.Scatter(x=df_meta['date'], y=df_meta['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
+fig_meta.add_trace(go.Scatter(x=df_meta['date'], y=df_meta['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
+fig_meta.add_trace(go.Scatter(x=df_meta['date'], y=df_meta['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
+
+# 3. Bollinger Bands
+fig_meta.add_trace(go.Scatter(x=df_meta['date'], y=df_meta['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
+fig_meta.add_trace(go.Scatter(x=df_meta['date'], y=df_meta['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
+
+# 4. Volume
+fig_meta.add_trace(go.Bar(x=df_meta['date'], y=df_meta['volume'], name='Volume', marker=dict(color=colors_meta, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+
+fig_meta.update_layout(
+    template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
+    xaxis=dict(
+        rangeslider=dict(visible=False),
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1M", step="month", stepmode="backward"),
+                dict(count=3, label="3M", step="month", stepmode="backward"),
+                dict(count=6, label="6M", step="month", stepmode="backward"),
+                dict(count=1, label="1Y", step="year", stepmode="backward"),
+                dict(count=5, label="5Y", step="year", stepmode="backward"),
+                dict(step="all", label="MAX")
+            ]),
+            bgcolor='#141824', activecolor='#2962ff', font=dict(color='#d1d4dc', size=11), bordercolor='#202637', borderwidth=1
+        )
+    ),
+    yaxis=dict(gridcolor='#202637', zerolinecolor='#202637', tickprefix='$', title='Price (USD)', fixedrange=True),
+    yaxis2=dict(gridcolor='#202637', zerolinecolor='#202637', title='Volume', fixedrange=True),
+    legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)')
+)
+fig_meta.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
+fig_meta.show(config={'scrollZoom': True})
+```
+
+</div>
+:::
+
+<hr/>
+
+
+## Amazon.com, Inc. (AMZN)
+
+::: {.column-screen}
+<div id="chart-container-amzn" class="chart-wrapper">
+<div class="chart-toolbar">
+<div class="toolbar-left">
+<span class="ticker-badge">AMZN</span>
+<span class="ticker-title">Amazon.com, Inc.</span>
+<span class="divider">|</span>
+<div class="indicator-buttons">
+<button class="tool-btn active" id="btn-sma-amzn" onclick="toggleIndicators('sma', 'amzn')">SMA Lines</button>
+<button class="tool-btn" id="btn-bb-amzn" onclick="toggleIndicators('bb', 'amzn')">Bollinger Bands</button>
+<button class="tool-btn" id="btn-all-amzn" onclick="toggleIndicators('all', 'amzn')">Show All</button>
+<button class="tool-btn" id="btn-clear-amzn" onclick="toggleIndicators('clear', 'amzn')">Price Only</button>
+</div>
+</div>
+<button id="fullscreen-btn-amzn" onclick="toggleFullscreen('amzn')">⛶ Full Screen</button>
+</div>
+
+```{python}
+#| label: chart-amzn
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+# Load dataset
+df_amzn = pd.read_csv("../downloads/amzn_enriched.csv")
+df_amzn['date'] = pd.to_datetime(df_amzn['date'])
+
+# Create subplots
+fig_amzn = make_subplots(
+    rows=2, cols=1, 
+    shared_xaxes=True, 
+    vertical_spacing=0.03,
+    subplot_titles=('Price & Technical Indicators', 'Volume'),
+    row_width=[0.2, 0.8]
+)
+
+colors_amzn = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_amzn.iterrows()]
+
+# 1. Candlestick
+fig_amzn.add_trace(
+    go.Candlestick(
+        x=df_amzn['date'], open=df_amzn['open'], high=df_amzn['high'], low=df_amzn['low'], close=df_amzn['close'],
+        name='AMZN Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
+        increasing_fillcolor='#26a69a', decreasing_fillcolor='#ef5350', showlegend=True
+    ), row=1, col=1
+)
+
+# 2. SMAs
+fig_amzn.add_trace(go.Scatter(x=df_amzn['date'], y=df_amzn['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
+fig_amzn.add_trace(go.Scatter(x=df_amzn['date'], y=df_amzn['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
+fig_amzn.add_trace(go.Scatter(x=df_amzn['date'], y=df_amzn['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
+
+# 3. Bollinger Bands
+fig_amzn.add_trace(go.Scatter(x=df_amzn['date'], y=df_amzn['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
+fig_amzn.add_trace(go.Scatter(x=df_amzn['date'], y=df_amzn['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
+
+# 4. Volume
+fig_amzn.add_trace(go.Bar(x=df_amzn['date'], y=df_amzn['volume'], name='Volume', marker=dict(color=colors_amzn, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+
+fig_amzn.update_layout(
+    template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
+    xaxis=dict(
+        rangeslider=dict(visible=False),
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1M", step="month", stepmode="backward"),
+                dict(count=3, label="3M", step="month", stepmode="backward"),
+                dict(count=6, label="6M", step="month", stepmode="backward"),
+                dict(count=1, label="1Y", step="year", stepmode="backward"),
+                dict(count=5, label="5Y", step="year", stepmode="backward"),
+                dict(step="all", label="MAX")
+            ]),
+            bgcolor='#141824', activecolor='#2962ff', font=dict(color='#d1d4dc', size=11), bordercolor='#202637', borderwidth=1
+        )
+    ),
+    yaxis=dict(gridcolor='#202637', zerolinecolor='#202637', tickprefix='$', title='Price (USD)', fixedrange=True),
+    yaxis2=dict(gridcolor='#202637', zerolinecolor='#202637', title='Volume', fixedrange=True),
+    legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)')
+)
+fig_amzn.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
+fig_amzn.show(config={'scrollZoom': True})
+```
+
+</div>
+:::
+
+<hr/>
+
 
 ## Tesla, Inc. (TSLA)
 
@@ -309,6 +703,10 @@ fig_nvda.show(config={'scrollZoom': True})
 #| echo: false
 #| warning: false
 #| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 # Load dataset
 df_tsla = pd.read_csv("../downloads/tsla_enriched.csv")
@@ -369,8 +767,201 @@ fig_tsla.update_layout(
 fig_tsla.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
 fig_tsla.show(config={'scrollZoom': True})
 ```
+
 </div>
 :::
+
+<hr/>
+
+
+## Advanced Micro Devices, Inc. (AMD)
+
+::: {.column-screen}
+<div id="chart-container-amd" class="chart-wrapper">
+<div class="chart-toolbar">
+<div class="toolbar-left">
+<span class="ticker-badge">AMD</span>
+<span class="ticker-title">Advanced Micro Devices, Inc.</span>
+<span class="divider">|</span>
+<div class="indicator-buttons">
+<button class="tool-btn active" id="btn-sma-amd" onclick="toggleIndicators('sma', 'amd')">SMA Lines</button>
+<button class="tool-btn" id="btn-bb-amd" onclick="toggleIndicators('bb', 'amd')">Bollinger Bands</button>
+<button class="tool-btn" id="btn-all-amd" onclick="toggleIndicators('all', 'amd')">Show All</button>
+<button class="tool-btn" id="btn-clear-amd" onclick="toggleIndicators('clear', 'amd')">Price Only</button>
+</div>
+</div>
+<button id="fullscreen-btn-amd" onclick="toggleFullscreen('amd')">⛶ Full Screen</button>
+</div>
+
+```{python}
+#| label: chart-amd
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+# Load dataset
+df_amd = pd.read_csv("../downloads/amd_enriched.csv")
+df_amd['date'] = pd.to_datetime(df_amd['date'])
+
+# Create subplots
+fig_amd = make_subplots(
+    rows=2, cols=1, 
+    shared_xaxes=True, 
+    vertical_spacing=0.03,
+    subplot_titles=('Price & Technical Indicators', 'Volume'),
+    row_width=[0.2, 0.8]
+)
+
+colors_amd = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_amd.iterrows()]
+
+# 1. Candlestick
+fig_amd.add_trace(
+    go.Candlestick(
+        x=df_amd['date'], open=df_amd['open'], high=df_amd['high'], low=df_amd['low'], close=df_amd['close'],
+        name='AMD Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
+        increasing_fillcolor='#26a69a', decreasing_fillcolor='#ef5350', showlegend=True
+    ), row=1, col=1
+)
+
+# 2. SMAs
+fig_amd.add_trace(go.Scatter(x=df_amd['date'], y=df_amd['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
+fig_amd.add_trace(go.Scatter(x=df_amd['date'], y=df_amd['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
+fig_amd.add_trace(go.Scatter(x=df_amd['date'], y=df_amd['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
+
+# 3. Bollinger Bands
+fig_amd.add_trace(go.Scatter(x=df_amd['date'], y=df_amd['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
+fig_amd.add_trace(go.Scatter(x=df_amd['date'], y=df_amd['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
+
+# 4. Volume
+fig_amd.add_trace(go.Bar(x=df_amd['date'], y=df_amd['volume'], name='Volume', marker=dict(color=colors_amd, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+
+fig_amd.update_layout(
+    template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
+    xaxis=dict(
+        rangeslider=dict(visible=False),
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1M", step="month", stepmode="backward"),
+                dict(count=3, label="3M", step="month", stepmode="backward"),
+                dict(count=6, label="6M", step="month", stepmode="backward"),
+                dict(count=1, label="1Y", step="year", stepmode="backward"),
+                dict(count=5, label="5Y", step="year", stepmode="backward"),
+                dict(step="all", label="MAX")
+            ]),
+            bgcolor='#141824', activecolor='#2962ff', font=dict(color='#d1d4dc', size=11), bordercolor='#202637', borderwidth=1
+        )
+    ),
+    yaxis=dict(gridcolor='#202637', zerolinecolor='#202637', tickprefix='$', title='Price (USD)', fixedrange=True),
+    yaxis2=dict(gridcolor='#202637', zerolinecolor='#202637', title='Volume', fixedrange=True),
+    legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)')
+)
+fig_amd.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
+fig_amd.show(config={'scrollZoom': True})
+```
+
+</div>
+:::
+
+<hr/>
+
+
+## Netflix, Inc. (NFLX)
+
+::: {.column-screen}
+<div id="chart-container-nflx" class="chart-wrapper">
+<div class="chart-toolbar">
+<div class="toolbar-left">
+<span class="ticker-badge">NFLX</span>
+<span class="ticker-title">Netflix, Inc.</span>
+<span class="divider">|</span>
+<div class="indicator-buttons">
+<button class="tool-btn active" id="btn-sma-nflx" onclick="toggleIndicators('sma', 'nflx')">SMA Lines</button>
+<button class="tool-btn" id="btn-bb-nflx" onclick="toggleIndicators('bb', 'nflx')">Bollinger Bands</button>
+<button class="tool-btn" id="btn-all-nflx" onclick="toggleIndicators('all', 'nflx')">Show All</button>
+<button class="tool-btn" id="btn-clear-nflx" onclick="toggleIndicators('clear', 'nflx')">Price Only</button>
+</div>
+</div>
+<button id="fullscreen-btn-nflx" onclick="toggleFullscreen('nflx')">⛶ Full Screen</button>
+</div>
+
+```{python}
+#| label: chart-nflx
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+# Load dataset
+df_nflx = pd.read_csv("../downloads/nflx_enriched.csv")
+df_nflx['date'] = pd.to_datetime(df_nflx['date'])
+
+# Create subplots
+fig_nflx = make_subplots(
+    rows=2, cols=1, 
+    shared_xaxes=True, 
+    vertical_spacing=0.03,
+    subplot_titles=('Price & Technical Indicators', 'Volume'),
+    row_width=[0.2, 0.8]
+)
+
+colors_nflx = ['#26a69a' if row['close'] >= row['open'] else '#ef5350' for _, row in df_nflx.iterrows()]
+
+# 1. Candlestick
+fig_nflx.add_trace(
+    go.Candlestick(
+        x=df_nflx['date'], open=df_nflx['open'], high=df_nflx['high'], low=df_nflx['low'], close=df_nflx['close'],
+        name='NFLX Price', increasing_line_color='#26a69a', decreasing_line_color='#ef5350',
+        increasing_fillcolor='#26a69a', decreasing_fillcolor='#ef5350', showlegend=True
+    ), row=1, col=1
+)
+
+# 2. SMAs
+fig_nflx.add_trace(go.Scatter(x=df_nflx['date'], y=df_nflx['sma_20'], line=dict(color='#2962ff', width=1.5), name='SMA 20', visible=True), row=1, col=1)
+fig_nflx.add_trace(go.Scatter(x=df_nflx['date'], y=df_nflx['sma_50'], line=dict(color='#ff9800', width=1.5), name='SMA 50', visible=True), row=1, col=1)
+fig_nflx.add_trace(go.Scatter(x=df_nflx['date'], y=df_nflx['sma_200'], line=dict(color='#e040fb', width=1.5), name='SMA 200', visible=True), row=1, col=1)
+
+# 3. Bollinger Bands
+fig_nflx.add_trace(go.Scatter(x=df_nflx['date'], y=df_nflx['bb_upper'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), name='BB Upper', visible=False), row=1, col=1)
+fig_nflx.add_trace(go.Scatter(x=df_nflx['date'], y=df_nflx['bb_lower'], line=dict(color='rgba(173, 20, 87, 0.5)', width=1, dash='dash'), fill='tonexty', fillcolor='rgba(173, 20, 87, 0.05)', name='BB Lower', visible=False), row=1, col=1)
+
+# 4. Volume
+fig_nflx.add_trace(go.Bar(x=df_nflx['date'], y=df_nflx['volume'], name='Volume', marker=dict(color=colors_nflx, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+
+fig_nflx.update_layout(
+    template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
+    xaxis=dict(
+        rangeslider=dict(visible=False),
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1M", step="month", stepmode="backward"),
+                dict(count=3, label="3M", step="month", stepmode="backward"),
+                dict(count=6, label="6M", step="month", stepmode="backward"),
+                dict(count=1, label="1Y", step="year", stepmode="backward"),
+                dict(count=5, label="5Y", step="year", stepmode="backward"),
+                dict(step="all", label="MAX")
+            ]),
+            bgcolor='#141824', activecolor='#2962ff', font=dict(color='#d1d4dc', size=11), bordercolor='#202637', borderwidth=1
+        )
+    ),
+    yaxis=dict(gridcolor='#202637', zerolinecolor='#202637', tickprefix='$', title='Price (USD)', fixedrange=True),
+    yaxis2=dict(gridcolor='#202637', zerolinecolor='#202637', title='Volume', fixedrange=True),
+    legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)')
+)
+fig_nflx.update_xaxes(minallowed='2010-06-15', maxallowed='2026-07-05')
+fig_nflx.show(config={'scrollZoom': True})
+```
+
+</div>
+:::
+
+<hr/>
 
 <script>
 function toggleFullscreen(symbol) {
@@ -389,12 +980,10 @@ function toggleFullscreen(symbol) {
 }
 
 function toggleIndicators(type, symbol) {
-  // Find the Plotly graph div specifically inside the container for this symbol
   var container = document.getElementById('chart-container-' + symbol);
   var gd = container.querySelector('.plotly-graph-div');
   if (!gd) return;
   
-  // Update button active state for this symbol
   var buttons = container.querySelectorAll('.indicator-buttons .tool-btn');
   buttons.forEach(function(btn) {
     btn.classList.remove('active');

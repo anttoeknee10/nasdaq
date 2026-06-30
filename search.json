@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "nvda_index.html",
+    "href": "nvda_index.html",
+    "title": "NVDA Advanced Charting",
+    "section": "",
+    "text": "NVDA NVIDIA Corp. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  },
+  {
+    "objectID": "project_outline.html",
+    "href": "project_outline.html",
+    "title": "Tesla (TSLA) Historical Stock Data Analysis",
+    "section": "",
+    "text": "The objective of this project is to build an interactive, visually stunning webpage using Quarto (.qmd) that analyzes Tesla’s (TSLA) stock history from its IPO in 2010 to the present. We will use Python for data processing and visualization, aiming to create educational and interesting graphics that reveal trends, volatility, and trading patterns."
+  },
+  {
+    "objectID": "project_outline.html#phase-1-data-acquisition-directory-setup",
+    "href": "project_outline.html#phase-1-data-acquisition-directory-setup",
+    "title": "Tesla (TSLA) Historical Stock Data Analysis",
+    "section": "Phase 1: Data Acquisition & Directory Setup",
+    "text": "Phase 1: Data Acquisition & Directory Setup\n\nCreate project structure (code/, downloads/).\nImplement robust multi-source downloader that handles fallback options (Nasdaq API to Yahoo Finance).\nFetch full TSLA history from IPO (June 29, 2010) to current date (tsla_all_historical.csv)."
+  },
+  {
+    "objectID": "project_outline.html#phase-2-data-exploration-feature-engineering",
+    "href": "project_outline.html#phase-2-data-exploration-feature-engineering",
+    "title": "Tesla (TSLA) Historical Stock Data Analysis",
+    "section": "Phase 2: Data Exploration & Feature Engineering",
+    "text": "Phase 2: Data Exploration & Feature Engineering\nBefore creating graphics, we need to enrich the dataset with technical indicators that make for interesting visualizations: * Moving Averages (MA): * Short-term: 20-day and 50-day Simple Moving Average (SMA). * Long-term: 200-day SMA (crucial for detecting Golden Crosses and Death Crosses). * Volatilities & Returns: * Daily percentage return: \\(R_t = \\frac{P_t - P_{t-1}}{P_{t-1}}\\) * 30-day rolling volatility (Standard Deviation of returns). * Trading Bands: * Bollinger Bands (20-day SMA \\(\\pm\\) 2 standard deviations) to show overbought/oversold levels.\n#| label: feature-engineering\n#| eval: false\n#| echo: true\n# Example code block for indicators:\nimport pandas as pd\n\ndf = pd.read_csv(\"../downloads/tsla_all_historical.csv\")\ndf['date'] = pd.to_datetime(df['date'])\n\n# Moving averages\ndf['sma_50'] = df['close'].rolling(window=50).mean()\ndf['sma_200'] = df['close'].rolling(window=200).mean()\n\n# Daily Returns\ndf['daily_return'] = df['close'].pct_change()"
+  },
+  {
+    "objectID": "project_outline.html#phase-3-interactive-visualizations",
+    "href": "project_outline.html#phase-3-interactive-visualizations",
+    "title": "Tesla (TSLA) Historical Stock Data Analysis",
+    "section": "Phase 3: Interactive Visualizations",
+    "text": "Phase 3: Interactive Visualizations\nWe will design at least four key interactive graphics using libraries like Plotly or Altair to allow zooming, panning, and hovering:\n\n1. Candlestick & Moving Average Overlay\n\nVisuals: Candlesticks (Open, High, Low, Close) overlaid with 50-day and 200-day SMAs, plus a bar chart of volume at the bottom.\nGoal: Understand long-term trends and identify support/resistance levels.\n\n\n\n2. Bollinger Bands Deviation Chart\n\nVisuals: Close price plotted alongside upper, middle, and lower Bollinger Bands with shaded bounds.\nGoal: Highlight periods of high volatility (squeezes) and potential price reversals.\n\n\n\n3. Daily Returns & Volatility Clustering\n\nVisuals: Dual-axis chart showing daily returns as a scatter/line plot and rolling 30-day volatility as an area chart.\nGoal: Visualize volatility clustering (the phenomenon where high-volatility days are followed by high-volatility days).\n\n\n\n4. Cumulative Returns & Drawdown Analysis\n\nVisuals: Peak-to-trough drop (%) line plot showing the maximum paper loss an investor would face during major corrections.\nGoal: Learn about investment risk, recovery times, and the scale of market corrections (e.g., 2022 bear market)."
+  },
+  {
+    "objectID": "project_outline.html#phase-4-webpage-assembly-styling",
+    "href": "project_outline.html#phase-4-webpage-assembly-styling",
+    "title": "Tesla (TSLA) Historical Stock Data Analysis",
+    "section": "Phase 4: Webpage Assembly & Styling",
+    "text": "Phase 4: Webpage Assembly & Styling\nQuarto allows us to render .qmd files into highly customized HTML documents: - Theme Selection: Select a modern theme (such as slate or cosmo, customized with custom CSS for dark mode/glassmorphism). - Responsive Layout: Grid systems to arrange charts side-by-side or stacked on mobile devices. - Code Folding: Keep the technical Python code tucked away in collapsible blocks (code-fold: true) so readers can focus on the graphics but easily inspect the source code if they choose."
+  },
+  {
+    "objectID": "project_outline.html#phase-5-rendering-publishing",
+    "href": "project_outline.html#phase-5-rendering-publishing",
+    "title": "Tesla (TSLA) Historical Stock Data Analysis",
+    "section": "Phase 5: Rendering & Publishing",
+    "text": "Phase 5: Rendering & Publishing\n\nRender the document locally to a single self-contained HTML page:\nquarto render project_outline.qmd --to html\nMake it hostable via GitHub Pages, Netlify, or local distribution."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Market Dashboard Overview",
+    "section": "",
+    "text": "Market Overview\nWelcome to the Advanced Market Analysis Dashboard. This space is reserved for a future market-wide overview visualization.\nUse the navigation bar above to explore historical charts and technical indicators (SMA and Bollinger Bands) for individual stocks under Stock Indices."
+  },
+  {
+    "objectID": "msft_index.html",
+    "href": "msft_index.html",
+    "title": "MSFT Advanced Charting",
+    "section": "",
+    "text": "MSFT Microsoft Corp. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  },
+  {
+    "objectID": "aapl_index.html",
+    "href": "aapl_index.html",
+    "title": "AAPL Advanced Charting",
+    "section": "",
+    "text": "AAPL Apple Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  },
+  {
+    "objectID": "tsla_index.html",
+    "href": "tsla_index.html",
+    "title": "TSLA Advanced Charting",
+    "section": "",
+    "text": "TSLA Tesla, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  }
+]

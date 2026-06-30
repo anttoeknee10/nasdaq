@@ -1,0 +1,222 @@
+/*-- scss:defaults --*/
+
+// Colors matching TradingView/Nasdaq dark charting style (deep blue-slate theme)
+$body-bg: #0c101b;      // Deep premium slate-blue background
+$body-color: #d1d4dc;   // Subdued gray text
+$link-color: #2962ff;   // Electric blue links
+$link-hover-color: lighten($link-color, 15%);
+$primary: #2962ff;
+
+// Typography
+$font-family-sans-serif: "Inter", "Outfit", system-ui, -apple-system, sans-serif;
+
+// TOC Customization
+$toc-color: #848e9c;
+$toc-active-color: #2962ff;
+$toc-border-color: #202637; // Dark blue-slate border
+
+/*-- scss:rules --*/
+
+// Ensure the page background and text are dark-slate unconditionally, with spacing above the header
+body {
+  background-color: #0c101b !important;
+  color: #d1d4dc !important;
+  padding-top: 40px !important;
+}
+
+// Sleek modern card design
+.quarto-title-block {
+  border-bottom: 1px solid #202637;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff !important;
+  font-family: "Outfit", "Inter", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+// Subdued custom borders and grids
+hr {
+  border-top: 1px solid #202637;
+  opacity: 1;
+}
+
+// Styling code blocks
+.code-copy-button {
+  background-color: #141824;
+  border: 1px solid #202637;
+  color: #d1d4dc;
+}
+
+.code-tools-button {
+  background-color: #141824 !important;
+  border: 1px solid #202637 !important;
+  color: #d1d4dc !important;
+}
+
+pre, code {
+  background-color: #141824 !important;
+  border: 1px solid #202637;
+  border-radius: 4px;
+}
+
+.table {
+  border-color: #202637;
+  color: #d1d4dc;
+  
+  thead th {
+    color: #ffffff;
+    border-bottom: 2px solid #202637;
+  }
+  
+  tbody td {
+    border-bottom: 1px solid #202637;
+  }
+}
+
+// Integrated Chart Wrapper - occupy full width and high responsive height
+.chart-wrapper {
+  position: relative;
+  height: 600px !important;   // Shrunk window height
+  width: 100%;
+  max-width: 100% !important; // Expand to 100% of body width
+  margin: 0 auto 24px auto; 
+  border: 1px solid #202637;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #0c101b; // Matches the page background exactly
+}
+
+// Fullscreen mode overrides
+.chart-wrapper.fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  max-width: none !important; 
+  height: 100vh !important;
+  z-index: 99999 !important;
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+// Integrated header toolbar at the top of the chart wrapper
+.chart-toolbar {
+  height: 48px;
+  background-color: #141824; // Slightly lighter slate-blue card background
+  border-bottom: 1px solid #202637;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  margin-bottom: 0px; // Integrated (no gap)
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticker-badge {
+  background-color: #2962ff;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+.ticker-title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.divider {
+  color: #202637;
+  font-weight: 300;
+}
+
+.indicator-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.tool-btn {
+  background-color: #1a1e2e;
+  color: #d1d4dc;
+  border: 1px solid #202637;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tool-btn:hover, .tool-btn.active {
+  background-color: #2962ff;
+  color: #ffffff;
+  border-color: #2962ff;
+}
+
+#fullscreen-btn {
+  background-color: #1a1e2e;
+  color: #d1d4dc;
+  border: 1px solid #202637;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#fullscreen-btn:hover {
+  background-color: #2962ff;
+  color: #ffffff;
+  border-color: #2962ff;
+}
+
+// Force all intermediate Quarto/Jupyter output containers to fill the chart-wrapper below the toolbar
+.chart-wrapper > .cell,
+.chart-wrapper > .cell > .cell-output,
+.chart-wrapper > .cell > .cell-output > .cell-output-display {
+  height: calc(100% - 48px) !important;
+  width: 100% !important;
+}
+
+// Force the internal Plotly components to fill 100% of their display containers
+.chart-wrapper .html-widget, 
+.chart-wrapper .plotly-graph-div, 
+.chart-wrapper .js-plotly-plot,
+.chart-wrapper .plotly {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+// Move Plotly's floating modebar (toolbar of interactions) to the bottom-right corner to prevent overlaps
+.chart-wrapper .modebar {
+  position: absolute !important;
+  top: auto !important;
+  bottom: 40px !important; // Raised slightly above the volume labels
+  right: 10px !important;
+  left: auto !important;
+}
+
+// Full page layout adjustments - set a spacious side margin for the whole page
+main {
+  max-width: 100% !important; 
+  margin: 0 auto !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}

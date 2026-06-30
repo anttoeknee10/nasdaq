@@ -1,0 +1,9 @@
+---
+title: "Market Dashboard Overview"
+---
+
+# Market Overview
+
+Welcome to the Advanced Market Analysis Dashboard. This space is reserved for a future market-wide overview visualization.
+
+Use the navigation bar above to explore historical charts and technical indicators (SMA and Bollinger Bands) for individual stocks under **Stock Indices**.

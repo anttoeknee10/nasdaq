@@ -4,7 +4,7 @@ Stock Data Pipeline & Chart Generator
 
 This script automates the download, technical indicator enrichment, QMD creation,
 and Quarto rendering for the full list of 10 Nasdaq stocks, generating a single
-scrollable "Stock Indices" page.
+scrollable "Stock Indices" page with events overlays and dropdown explanations.
 """
 
 import os
@@ -18,7 +18,94 @@ import subprocess
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from nasdaq_downloader import download_historical_data
 
-# The python charting template for each stock
+# Comprehensive database of origins and historical events for all 10 stocks
+STOCK_METADATA = {
+    "aapl": {
+        "origin": "Apple Inc. was founded in 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne. Initially focusing on personal computers, the company transformed into a consumer electronics giant with the launches of the iMac, iPod, iPhone, and iPad. Today, it is a global leader in technology, hardware design, and digital services.",
+        "events": [
+            {"date": "2011-08-24", "label": "Jobs Resigns / Cook CEO", "desc": "Steve Jobs resigns due to health reasons; Tim Cook is appointed CEO. Jobs passes away shortly after on October 5, 2011."},
+            {"date": "2014-06-09", "label": "7-for-1 Stock Split", "desc": "Apple implements a 7-for-1 stock split to make shares more accessible to retail investors."},
+            {"date": "2020-08-31", "label": "4-for-1 Stock Split", "desc": "Apple conducts another stock split (4-for-1) amid massive market expansion."},
+            {"date": "2023-06-30", "label": "$3T Market Cap", "desc": "Apple becomes the first publicly traded company to close with a market capitalization exceeding $3 trillion."}
+        ]
+    },
+    "sbux": {
+        "origin": "Starbucks Corporation was founded in Seattle, Washington in 1971. Under Howard Schultz's leadership in the 1980s, the company adopted the Italian espresso bar concept, leading to rapid global expansion. Starbucks is now the world's largest coffeehouse chain, known for popularizing dark-roasted coffee and creating a 'third place' between home and work.",
+        "events": [
+            {"date": "2017-04-03", "label": "Johnson Appointed CEO", "desc": "Kevin Johnson takes over as CEO from long-time leader Howard Schultz, shifting focus to technology, mobile ordering, and cold beverage innovation."},
+            {"date": "2020-03-12", "label": "COVID store closures", "desc": "Starbucks closes company-operated stores across North America to curb COVID-19, causing a sharp drop in short-term sales and share prices."},
+            {"date": "2022-04-04", "label": "Schultz returns interim CEO", "desc": "Howard Schultz returns as interim CEO to lead a restructuring program and address growing unionization efforts."}
+        ]
+    },
+    "msft": {
+        "origin": "Microsoft Corporation was founded in 1975 by Paul Allen and Bill Gates. It dominated the personal computer operating system market with MS-DOS and Windows. Under Satya Nadella, the company successfully pivoted to cloud computing, enterprise services, and artificial intelligence, positioning it as one of the world's most valuable corporations.",
+        "events": [
+            {"date": "2014-02-04", "label": "Nadella appointed CEO", "desc": "Satya Nadella is named CEO, succeeding Steve Ballmer. Nadella initiates a 'cloud-first, mobile-first' strategy, reviving Microsoft's market leadership."},
+            {"date": "2016-06-13", "label": "LinkedIn Acquisition", "desc": "Microsoft announces the acquisition of LinkedIn for $26.2 billion, expanding its enterprise network services."},
+            {"date": "2023-01-23", "label": "OpenAI Partnership Boost", "desc": "Microsoft announces a multi-year, multi-billion dollar investment in OpenAI, accelerating the integration of generative AI into its Windows, Office, and Azure products."}
+        ]
+    },
+    "csco": {
+        "origin": "Cisco Systems, Inc. was founded in 1984 by Stanford University computer scientists Leonard Bosack and Sandy Lerner. Cisco pioneered the concept of local area networks (LAN) connecting geographically disparate computers over multiprotocol router systems. It remains a key infrastructure provider for global networking, cybersecurity, and cloud integrations.",
+        "events": [
+            {"date": "2015-07-26", "label": "Robbins becomes CEO", "desc": "Chuck Robbins succeeds John Chambers as CEO, accelerating Cisco's shift toward software-defined networking, cloud security, and subscription models."},
+            {"date": "2020-03-11", "label": "WFH Hardware Spike", "desc": "The onset of COVID-19 drives high demand for enterprise networking hardware and Webex collaboration software to support remote work setups."},
+            {"date": "2023-09-21", "label": "Splunk Acquisition Announced", "desc": "Cisco announces the acquisition of Splunk for $28 billion to bolster its data analytics, AI observability, and cybersecurity portfolios."}
+        ]
+    },
+    "qcom": {
+        "origin": "QUALCOMM Incorporated was founded in 1985 by Irwin Jacobs and a group of industry pioneers. Qualcomm pioneered CDMA wireless technology, which became the foundation for 3G, 4G, and 5G cellular communication networks. It is a leading designer of mobile system-on-chips (SoC) and cellular baseband processors.",
+        "events": [
+            {"date": "2019-04-16", "label": "Apple settlement rally", "desc": "Qualcomm and Apple reach an agreement to drop all worldwide litigation, signing a six-year patent license and chipset supply deal, triggering a 23% stock spike in one day."},
+            {"date": "2021-06-30", "label": "Amon assumes CEO role", "desc": "Cristiano Amon takes office as CEO, pushing Qualcomm's diversification into automotive chips, internet of things (IoT), and laptops."},
+            {"date": "2023-10-24", "label": "Snapdragon X Elite Launch", "desc": "Qualcomm introduces Snapdragon X Elite, a custom ARM PC processor designed to rival Apple's M-series chips, driving optimism in the PC market."}
+        ]
+    },
+    "meta": {
+        "origin": "Meta Platforms, Inc. (formerly Facebook) was founded in 2004 by Mark Zuckerberg and his Harvard roommates. Starting as a social network, it acquired Instagram, WhatsApp, and Oculus. In 2021, the company rebranded to Meta to emphasize its focus on the metaverse and next-generation spatial computing.",
+        "events": [
+            {"date": "2012-05-18", "label": "Facebook IPO", "desc": "Facebook goes public at $38 per share, in one of the largest tech IPOs in history, valuation initially peaking around $104 billion."},
+            {"date": "2014-02-19", "label": "WhatsApp Acquisition", "desc": "Facebook announces the acquisition of mobile messaging app WhatsApp for $19 billion, cementing its mobile messaging leadership."},
+            {"date": "2021-10-28", "label": "Rebranding to Meta", "desc": "Mark Zuckerberg announces the corporate name change to Meta Platforms to signal a focus on building virtual environments."},
+            {"date": "2022-11-09", "label": "Layoffs & Efficiency Pivot", "desc": "Meta announces its first mass layoff of 11,000 employees, initiating a transition to capital discipline and cost reductions, fueling a massive stock recovery."}
+        ]
+    },
+    "amzn": {
+        "origin": "Amazon.com, Inc. was founded in 1994 by Jeff Bezos as an online bookstore. It grew into the world's largest e-commerce platform and a dominant provider of cloud computing services via Amazon Web Services (AWS). Amazon also operates major digital streaming and smart home technology businesses.",
+        "events": [
+            {"date": "2017-06-16", "label": "Whole Foods Acquisition", "desc": "Amazon acquires Whole Foods Market for $13.7 billion, signaling a major expansion into brick-and-mortar grocery retail."},
+            {"date": "2021-07-05", "label": "Bezos steps down / Jassy CEO", "desc": "Jeff Bezos officially steps down as CEO to become Executive Chairman; AWS chief Andy Jassy is appointed CEO."},
+            {"date": "2022-06-06", "label": "20-for-1 Stock Split", "desc": "Amazon implements a 20-for-1 stock split and initiates a $10 billion share buyback program."}
+        ]
+    },
+    "tsla": {
+        "origin": "Tesla, Inc. was founded in 2003 by Martin Eberhard and Marc Tarpenning, with Elon Musk joining as lead investor and CEO shortly after. Tesla revolutionized the automotive market by proving electric vehicles could be fast, desirable, and practical, expanding into solar energy and battery storage systems.",
+        "events": [
+            {"date": "2012-06-22", "label": "Model S Deliveries Begin", "desc": "Tesla begins deliveries of its Model S sedan, the vehicle that established Tesla's premium brand and manufacturing capabilities."},
+            {"date": "2020-08-31", "label": "5-for-1 Stock Split", "desc": "Tesla splits its stock 5-for-1 to handle the rapid run-up in its share price."},
+            {"date": "2020-12-21", "label": "S&P 500 Inclusion", "desc": "Tesla joins the S&P 500 index after consecutive quarters of profitability, triggering heavy institutional index-buying."},
+            {"date": "2022-10-27", "label": "Twitter Acquisition closes", "desc": "Elon Musk completes the purchase of Twitter, leading to selloffs of TSLA shares to fund the acquisition and concerns over executive focus."}
+        ]
+    },
+    "amd": {
+        "origin": "Advanced Micro Devices, Inc. was founded in 1969 by Jerry Sanders and colleagues. Initially a second-source manufacturer of microchips, AMD became Intel's primary competitor in x86 microprocessors and a major graphics processing unit (GPU) supplier through its acquisition of ATI Technologies in 2006.",
+        "events": [
+            {"date": "2014-10-08", "label": "Dr. Lisa Su becomes CEO", "desc": "Dr. Lisa Su is appointed President and CEO, guiding AMD from near-bankruptcy to technological leadership and financial stability."},
+            {"date": "2017-03-02", "label": "Zen architecture launch", "desc": "AMD launches its new Ryzen desktop processors based on the Zen architecture, matching Intel's performance and triggering a multi-year market share recovery."},
+            {"date": "2022-02-14", "label": "Xilinx Acquisition closed", "desc": "AMD completes the acquisition of adaptive computing leader Xilinx for a record $49 billion, expanding its data center presence."}
+        ]
+    },
+    "nflx": {
+        "origin": "Netflix, Inc. was founded in 1997 by Reed Hastings and Marc Randolph as a DVD-by-mail service. Netflix launched streaming media in 2007, pioneering subscription video-on-demand. It has expanded into one of the largest media production companies in the world, distributing original content globally.",
+        "events": [
+            {"date": "2013-02-01", "label": "House of Cards launch", "desc": "Netflix releases its first major original drama series, 'House of Cards', proving the viability of streaming-only original programming."},
+            {"date": "2020-03-16", "label": "COVID Lockdown surge", "desc": "Pandemic lock-downs drive a historic wave of new signups and viewing hours, pushing Netflix to peak subscriber growth."},
+            {"date": "2022-04-19", "label": "First subscriber loss", "desc": "Netflix reports a loss of 200,000 subscribers—its first quarterly decline in a decade—prompting a pivot to ad-supported plans and password-sharing crackdowns."}
+        ]
+    }
+}
+
+# The python charting template with integrated overlays logic
 PYTHON_CELL_TEMPLATE = """```{{python}}
 #| label: chart-{sym}
 #| echo: false
@@ -64,6 +151,41 @@ fig_{sym}.add_trace(go.Scatter(x=df_{sym}['date'], y=df_{sym}['bb_lower'], line=
 
 # 4. Volume
 fig_{sym}.add_trace(go.Bar(x=df_{sym}['date'], y=df_{sym}['volume'], name='Volume', marker=dict(color=colors_{sym}, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
+
+# 5. Overlays (Historical Events)
+events_{sym} = {events_list}
+
+for ev in events_{sym}:
+    ev_date = pd.to_datetime(ev['date'])
+    # Get closest trading date to prevent empty gaps on weekend/holiday events
+    trading_dates = df_{sym}['date'][df_{sym}['date'] >= ev_date]
+    if not trading_dates.empty:
+        actual_date = trading_dates.iloc[0]
+        # Draw vertical line
+        fig_{sym}.add_vline(x=actual_date, line_width=1.2, line_dash="dash", line_color="#888888", row=1, col=1)
+        
+        # Position label above the high price for that date
+        row_data = df_{sym}[df_{sym}['date'] == actual_date]
+        y_val = row_data['high'].values[0] if not row_data.empty else df_{sym}['high'].mean()
+        
+        fig_{sym}.add_annotation(
+            x=actual_date,
+            y=y_val,
+            text=ev['label'],
+            showarrow=True,
+            arrowhead=1,
+            arrowsize=1,
+            arrowwidth=1,
+            arrowcolor='#888888',
+            ax=0,
+            ay=-40,
+            font=dict(color='#ffffff', size=9),
+            bgcolor='#141824',
+            bordercolor='#202637',
+            borderwidth=1,
+            borderpad=4,
+            row=1, col=1
+        )
 
 fig_{sym}.update_layout(
     template='plotly_dark', paper_bgcolor='#0c101b', plot_bgcolor='#0c101b', autosize=True, dragmode='pan', margin=dict(t=45, b=40, l=60, r=40),
@@ -128,7 +250,6 @@ def build_indices_page(stocks):
     qmd_file = "plots/stock_indices.qmd"
     print(f"[*] Building scrollable stock_indices.qmd for {len(stocks)} stocks...")
     
-    # Notice: self-contained: false is used here to prevent Pandoc OOM issues when embedding 10 high-density charts.
     header = """---
 title: "Stock Indices Interactive Charts"
 format:
@@ -152,7 +273,30 @@ format:
         SYM = stock["symbol"].upper()
         name = stock["name"]
         
-        python_cell = PYTHON_CELL_TEMPLATE.format(sym=sym, SYM=SYM)
+        # Fetch metadata
+        meta = STOCK_METADATA.get(sym, {"origin": "", "events": []})
+        events_list_str = str(meta["events"])
+        
+        # Format Python code cell
+        python_cell = PYTHON_CELL_TEMPLATE.format(sym=sym, SYM=SYM, events_list=events_list_str)
+        
+        # Format dropdown content
+        dropdown_html = f"""<details class="event-details">
+  <summary>🔍 Click to view {name} Origins & Major Price Action Drivers</summary>
+  <div class="event-content">
+    <h4>Company Origins</h4>
+    <p>{meta["origin"]}</p>
+    
+    <h4>Key Historical Milestones & Price Events</h4>
+    <ul>"""
+        
+        for ev in meta["events"]:
+            dropdown_html += f"\n      <li><strong>{ev['date']} ({ev['label']}):</strong> {ev['desc']}</li>"
+            
+        dropdown_html += """
+    </ul>
+  </div>
+</details>"""
         
         section = f"""
 ## {name} ({SYM})
@@ -177,6 +321,8 @@ format:
 {python_cell}
 
 </div>
+
+{dropdown_html}
 :::
 
 <hr/>

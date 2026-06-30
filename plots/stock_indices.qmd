@@ -8,8 +8,8 @@ format:
 ---
 
 <head>
-  <meta name="description" content="Interactive charting for multiple stock indices on a single scrollable page.">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Interactive charting for multiple stock indices on a single scrollable page.">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -141,19 +141,18 @@ fig_aapl.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Apple Inc. Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Apple Inc. was founded in 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne. Initially focusing on personal computers, the company transformed into a consumer electronics giant with the launches of the iMac, iPod, iPhone, and iPad. Today, it is a global leader in technology, hardware design, and digital services.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2011-08-24 (Jobs Resigns / Cook CEO):</strong> Steve Jobs resigns due to health reasons; Tim Cook is appointed CEO. Jobs passes away shortly after on October 5, 2011.</li>
-      <li><strong>2014-06-09 (7-for-1 Stock Split):</strong> Apple implements a 7-for-1 stock split to make shares more accessible to retail investors.</li>
-      <li><strong>2020-08-31 (4-for-1 Stock Split):</strong> Apple conducts another stock split (4-for-1) amid massive market expansion.</li>
-      <li><strong>2023-06-30 ($3T Market Cap):</strong> Apple becomes the first publicly traded company to close with a market capitalization exceeding $3 trillion.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Apple Inc. Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Apple Inc. was founded in 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne. Initially focusing on personal computers, the company transformed into a consumer electronics giant with the launches of the iMac, iPod, iPhone, and iPad. Today, it is a global leader in technology, hardware design, and digital services.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2011-08-24 (Jobs Resigns / Cook CEO):</strong> Steve Jobs resigns due to health reasons; Tim Cook is appointed CEO. Jobs passes away shortly after on October 5, 2011.</li>
+<li><strong>2014-06-09 (7-for-1 Stock Split):</strong> Apple implements a 7-for-1 stock split to make shares more accessible to retail investors.</li>
+<li><strong>2020-08-31 (4-for-1 Stock Split):</strong> Apple conducts another stock split (4-for-1) amid massive market expansion.</li>
+<li><strong>2023-06-30 ($3T Market Cap):</strong> Apple becomes the first publicly traded company to close with a market capitalization exceeding $3 trillion.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -287,18 +286,17 @@ fig_sbux.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Starbucks Corporation Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Starbucks Corporation was founded in Seattle, Washington in 1971. Under Howard Schultz's leadership in the 1980s, the company adopted the Italian espresso bar concept, leading to rapid global expansion. Starbucks is now the world's largest coffeehouse chain, known for popularizing dark-roasted coffee and creating a 'third place' between home and work.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2017-04-03 (Johnson Appointed CEO):</strong> Kevin Johnson takes over as CEO from long-time leader Howard Schultz, shifting focus to technology, mobile ordering, and cold beverage innovation.</li>
-      <li><strong>2020-03-12 (COVID store closures):</strong> Starbucks closes company-operated stores across North America to curb COVID-19, causing a sharp drop in short-term sales and share prices.</li>
-      <li><strong>2022-04-04 (Schultz returns interim CEO):</strong> Howard Schultz returns as interim CEO to lead a restructuring program and address growing unionization efforts.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Starbucks Corporation Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Starbucks Corporation was founded in Seattle, Washington in 1971. Under Howard Schultz's leadership in the 1980s, the company adopted the Italian espresso bar concept, leading to rapid global expansion. Starbucks is now the world's largest coffeehouse chain, known for popularizing dark-roasted coffee and creating a 'third place' between home and work.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2017-04-03 (Johnson Appointed CEO):</strong> Kevin Johnson takes over as CEO from long-time leader Howard Schultz, shifting focus to technology, mobile ordering, and cold beverage innovation.</li>
+<li><strong>2020-03-12 (COVID store closures):</strong> Starbucks closes company-operated stores across North America to curb COVID-19, causing a sharp drop in short-term sales and share prices.</li>
+<li><strong>2022-04-04 (Schultz returns interim CEO):</strong> Howard Schultz returns as interim CEO to lead a restructuring program and address growing unionization efforts.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -371,7 +369,7 @@ fig_msft.add_trace(go.Scatter(x=df_msft['date'], y=df_msft['bb_lower'], line=dic
 fig_msft.add_trace(go.Bar(x=df_msft['date'], y=df_msft['volume'], name='Volume', marker=dict(color=colors_msft, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
 
 # 5. Overlays (Historical Events)
-events_msft = [{'date': '2014-02-04', 'label': 'Nadella appointed CEO', 'desc': "Satya Nadella is named CEO, succeeding Steve Ballmer. Nadella initiates a 'cloud-first, mobile-first' strategy, reviving Microsoft's market leadership."}, {'date': '2016-06-13', 'label': 'LinkedIn Acquisition', 'desc': 'Microsoft announces the acquisition of LinkedIn for $26.2 billion, expanding its enterprise network services.'}, {'date': '2023-01-23', 'label': 'OpenAI Partnership Boost', 'desc': 'Microsoft announces a multi-year, multi-billion dollar investment in OpenAI, accelerating the integration of generative AI into its Windows, Office, and Azure products.'}]
+events_msft = [{'date': '2014-02-04', 'label': 'Nadella appointed CEO', 'desc': "Satya Nadella is named CEO, succeeding Steve Ballmer. Nadella initiates a 'cloud-first, mobile-first' strategy, reviving Microsoft's market leadership."}, {'date': '2016-06-13', 'label': 'LinkedIn Acquisition', 'desc': 'Microsoft announces the acquisition of LinkedIn for $26.2 billion, expanding its network services.'}, {'date': '2023-01-23', 'label': 'OpenAI Partnership Boost', 'desc': 'Microsoft announces a multi-year, multi-billion dollar investment in OpenAI, accelerating the integration of generative AI into its Windows, Office, and Azure products.'}]
 
 for ev in events_msft:
     ev_date = pd.to_datetime(ev['date'])
@@ -432,18 +430,17 @@ fig_msft.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Microsoft Corporation Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Microsoft Corporation was founded in 1975 by Paul Allen and Bill Gates. It dominated the personal computer operating system market with MS-DOS and Windows. Under Satya Nadella, the company successfully pivoted to cloud computing, enterprise services, and artificial intelligence, positioning it as one of the world's most valuable corporations.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2014-02-04 (Nadella appointed CEO):</strong> Satya Nadella is named CEO, succeeding Steve Ballmer. Nadella initiates a 'cloud-first, mobile-first' strategy, reviving Microsoft's market leadership.</li>
-      <li><strong>2016-06-13 (LinkedIn Acquisition):</strong> Microsoft announces the acquisition of LinkedIn for $26.2 billion, expanding its enterprise network services.</li>
-      <li><strong>2023-01-23 (OpenAI Partnership Boost):</strong> Microsoft announces a multi-year, multi-billion dollar investment in OpenAI, accelerating the integration of generative AI into its Windows, Office, and Azure products.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Microsoft Corporation Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Microsoft Corporation was founded in 1975 by Paul Allen and Bill Gates. It dominated the personal computer operating system market with MS-DOS and Windows. Under Satya Nadella, the company successfully pivoted to cloud computing, enterprise services, and artificial intelligence, positioning it as one of the world's most valuable corporations.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2014-02-04 (Nadella appointed CEO):</strong> Satya Nadella is named CEO, succeeding Steve Ballmer. Nadella initiates a 'cloud-first, mobile-first' strategy, reviving Microsoft's market leadership.</li>
+<li><strong>2016-06-13 (LinkedIn Acquisition):</strong> Microsoft announces the acquisition of LinkedIn for $26.2 billion, expanding its network services.</li>
+<li><strong>2023-01-23 (OpenAI Partnership Boost):</strong> Microsoft announces a multi-year, multi-billion dollar investment in OpenAI, accelerating the integration of generative AI into its Windows, Office, and Azure products.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -577,18 +574,17 @@ fig_csco.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Cisco Systems, Inc. Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Cisco Systems, Inc. was founded in 1984 by Stanford University computer scientists Leonard Bosack and Sandy Lerner. Cisco pioneered the concept of local area networks (LAN) connecting geographically disparate computers over multiprotocol router systems. It remains a key infrastructure provider for global networking, cybersecurity, and cloud integrations.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2015-07-26 (Robbins becomes CEO):</strong> Chuck Robbins succeeds John Chambers as CEO, accelerating Cisco's shift toward software-defined networking, cloud security, and subscription models.</li>
-      <li><strong>2020-03-11 (WFH Hardware Spike):</strong> The onset of COVID-19 drives high demand for enterprise networking hardware and Webex collaboration software to support remote work setups.</li>
-      <li><strong>2023-09-21 (Splunk Acquisition Announced):</strong> Cisco announces the acquisition of Splunk for $28 billion to bolster its data analytics, AI observability, and cybersecurity portfolios.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Cisco Systems, Inc. Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Cisco Systems, Inc. was founded in 1984 by Stanford University computer scientists Leonard Bosack and Sandy Lerner. Cisco pioneered the concept of local area networks (LAN) connecting geographically disparate computers over multiprotocol router systems. It remains a key infrastructure provider for global networking, cybersecurity, and cloud integrations.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2015-07-26 (Robbins becomes CEO):</strong> Chuck Robbins succeeds John Chambers as CEO, accelerating Cisco's shift toward software-defined networking, cloud security, and subscription models.</li>
+<li><strong>2020-03-11 (WFH Hardware Spike):</strong> The onset of COVID-19 drives high demand for enterprise networking hardware and Webex collaboration software to support remote work setups.</li>
+<li><strong>2023-09-21 (Splunk Acquisition Announced):</strong> Cisco announces the acquisition of Splunk for $28 billion to bolster its data analytics, AI observability, and cybersecurity portfolios.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -722,18 +718,17 @@ fig_qcom.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view QUALCOMM Incorporated Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>QUALCOMM Incorporated was founded in 1985 by Irwin Jacobs and a group of industry pioneers. Qualcomm pioneered CDMA wireless technology, which became the foundation for 3G, 4G, and 5G cellular communication networks. It is a leading designer of mobile system-on-chips (SoC) and cellular baseband processors.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2019-04-16 (Apple settlement rally):</strong> Qualcomm and Apple reach an agreement to drop all worldwide litigation, signing a six-year patent license and chipset supply deal, triggering a 23% stock spike in one day.</li>
-      <li><strong>2021-06-30 (Amon assumes CEO role):</strong> Cristiano Amon takes office as CEO, pushing Qualcomm's diversification into automotive chips, internet of things (IoT), and laptops.</li>
-      <li><strong>2023-10-24 (Snapdragon X Elite Launch):</strong> Qualcomm introduces Snapdragon X Elite, a custom ARM PC processor designed to rival Apple's M-series chips, driving optimism in the PC market.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view QUALCOMM Incorporated Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>QUALCOMM Incorporated was founded in 1985 by Irwin Jacobs and a group of industry pioneers. Qualcomm pioneered CDMA wireless technology, which became the foundation for 3G, 4G, and 5G cellular communication networks. It is a leading designer of mobile system-on-chips (SoC) and cellular baseband processors.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2019-04-16 (Apple settlement rally):</strong> Qualcomm and Apple reach an agreement to drop all worldwide litigation, signing a six-year patent license and chipset supply deal, triggering a 23% stock spike in one day.</li>
+<li><strong>2021-06-30 (Amon assumes CEO role):</strong> Cristiano Amon takes office as CEO, pushing Qualcomm's diversification into automotive chips, internet of things (IoT), and laptops.</li>
+<li><strong>2023-10-24 (Snapdragon X Elite Launch):</strong> Qualcomm introduces Snapdragon X Elite, a custom ARM PC processor designed to rival Apple's M-series chips, driving optimism in the PC market.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -806,7 +801,7 @@ fig_meta.add_trace(go.Scatter(x=df_meta['date'], y=df_meta['bb_lower'], line=dic
 fig_meta.add_trace(go.Bar(x=df_meta['date'], y=df_meta['volume'], name='Volume', marker=dict(color=colors_meta, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
 
 # 5. Overlays (Historical Events)
-events_meta = [{'date': '2012-05-18', 'label': 'Facebook IPO', 'desc': 'Facebook goes public at $38 per share, in one of the largest tech IPOs in history, valuation initially peaking around $104 billion.'}, {'date': '2014-02-19', 'label': 'WhatsApp Acquisition', 'desc': 'Facebook announces the acquisition of mobile messaging app WhatsApp for $19 billion, cementing its mobile messaging leadership.'}, {'date': '2021-10-28', 'label': 'Rebranding to Meta', 'desc': 'Mark Zuckerberg announces the corporate name change to Meta Platforms to signal a focus on building virtual environments.'}, {'date': '2022-11-09', 'label': 'Layoffs & Efficiency Pivot', 'desc': 'Meta announces its first mass layoff of 11,000 employees, initiating a transition to capital discipline and cost reductions, fueling a massive stock recovery.'}]
+events_meta = [{'date': '2012-05-18', 'label': 'Facebook IPO', 'desc': 'Facebook goes public at $38 per share, in one of the largest tech IPOs in history, valuation initially peaking around $104 billion.'}, {'date': '2014-02-19', 'label': 'WhatsApp Acquisition', 'desc': 'Facebook announces the acquisition of mobile messaging app WhatsApp for $19 billion, cementing its mobile messaging leadership.'}, {'date': '2021-10-28', 'label': 'Rebranding to Meta', 'desc': 'Mark Zuckerberg announces the name change to Meta Platforms to signal a focus on building virtual environments.'}, {'date': '2022-11-09', 'label': 'Layoffs & Efficiency Pivot', 'desc': 'Meta announces its first mass layoff of 11,000 employees, initiating a transition to capital discipline and cost reductions, fueling a massive stock recovery.'}]
 
 for ev in events_meta:
     ev_date = pd.to_datetime(ev['date'])
@@ -867,19 +862,18 @@ fig_meta.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Meta Platforms, Inc. Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Meta Platforms, Inc. (formerly Facebook) was founded in 2004 by Mark Zuckerberg and his Harvard roommates. Starting as a social network, it acquired Instagram, WhatsApp, and Oculus. In 2021, the company rebranded to Meta to emphasize its focus on the metaverse and next-generation spatial computing.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2012-05-18 (Facebook IPO):</strong> Facebook goes public at $38 per share, in one of the largest tech IPOs in history, valuation initially peaking around $104 billion.</li>
-      <li><strong>2014-02-19 (WhatsApp Acquisition):</strong> Facebook announces the acquisition of mobile messaging app WhatsApp for $19 billion, cementing its mobile messaging leadership.</li>
-      <li><strong>2021-10-28 (Rebranding to Meta):</strong> Mark Zuckerberg announces the corporate name change to Meta Platforms to signal a focus on building virtual environments.</li>
-      <li><strong>2022-11-09 (Layoffs & Efficiency Pivot):</strong> Meta announces its first mass layoff of 11,000 employees, initiating a transition to capital discipline and cost reductions, fueling a massive stock recovery.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Meta Platforms, Inc. Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Meta Platforms, Inc. (formerly Facebook) was founded in 2004 by Mark Zuckerberg and his Harvard roommates. Starting as a social network, it acquired Instagram, WhatsApp, and Oculus. In 2021, the company rebranded to Meta to emphasize its focus on the metaverse and next-generation spatial computing.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2012-05-18 (Facebook IPO):</strong> Facebook goes public at $38 per share, in one of the largest tech IPOs in history, valuation initially peaking around $104 billion.</li>
+<li><strong>2014-02-19 (WhatsApp Acquisition):</strong> Facebook announces the acquisition of mobile messaging app WhatsApp for $19 billion, cementing its mobile messaging leadership.</li>
+<li><strong>2021-10-28 (Rebranding to Meta):</strong> Mark Zuckerberg announces the name change to Meta Platforms to signal a focus on building virtual environments.</li>
+<li><strong>2022-11-09 (Layoffs & Efficiency Pivot):</strong> Meta announces its first mass layoff of 11,000 employees, initiating a transition to capital discipline and cost reductions, fueling a massive stock recovery.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -1013,18 +1007,17 @@ fig_amzn.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Amazon.com, Inc. Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Amazon.com, Inc. was founded in 1994 by Jeff Bezos as an online bookstore. It grew into the world's largest e-commerce platform and a dominant provider of cloud computing services via Amazon Web Services (AWS). Amazon also operates major digital streaming and smart home technology businesses.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2017-06-16 (Whole Foods Acquisition):</strong> Amazon acquires Whole Foods Market for $13.7 billion, signaling a major expansion into brick-and-mortar grocery retail.</li>
-      <li><strong>2021-07-05 (Bezos steps down / Jassy CEO):</strong> Jeff Bezos officially steps down as CEO to become Executive Chairman; AWS chief Andy Jassy is appointed CEO.</li>
-      <li><strong>2022-06-06 (20-for-1 Stock Split):</strong> Amazon implements a 20-for-1 stock split and initiates a $10 billion share buyback program.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Amazon.com, Inc. Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Amazon.com, Inc. was founded in 1994 by Jeff Bezos as an online bookstore. It grew into the world's largest e-commerce platform and a dominant provider of cloud computing services via Amazon Web Services (AWS). Amazon also operates major digital streaming and smart home technology businesses.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2017-06-16 (Whole Foods Acquisition):</strong> Amazon acquires Whole Foods Market for $13.7 billion, signaling a major expansion into brick-and-mortar grocery retail.</li>
+<li><strong>2021-07-05 (Bezos steps down / Jassy CEO):</strong> Jeff Bezos officially steps down as CEO to become Executive Chairman; AWS chief Andy Jassy is appointed CEO.</li>
+<li><strong>2022-06-06 (20-for-1 Stock Split):</strong> Amazon implements a 20-for-1 stock split and initiates a $10 billion share buyback program.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -1158,19 +1151,18 @@ fig_tsla.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Tesla, Inc. Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Tesla, Inc. was founded in 2003 by Martin Eberhard and Marc Tarpenning, with Elon Musk joining as lead investor and CEO shortly after. Tesla revolutionized the automotive market by proving electric vehicles could be fast, desirable, and practical, expanding into solar energy and battery storage systems.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2012-06-22 (Model S Deliveries Begin):</strong> Tesla begins deliveries of its Model S sedan, the vehicle that established Tesla's premium brand and manufacturing capabilities.</li>
-      <li><strong>2020-08-31 (5-for-1 Stock Split):</strong> Tesla splits its stock 5-for-1 to handle the rapid run-up in its share price.</li>
-      <li><strong>2020-12-21 (S&P 500 Inclusion):</strong> Tesla joins the S&P 500 index after consecutive quarters of profitability, triggering heavy institutional index-buying.</li>
-      <li><strong>2022-10-27 (Twitter Acquisition closes):</strong> Elon Musk completes the purchase of Twitter, leading to selloffs of TSLA shares to fund the acquisition and concerns over executive focus.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Tesla, Inc. Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Tesla, Inc. was founded in 2003 by Martin Eberhard and Marc Tarpenning, with Elon Musk joining as lead investor and CEO shortly after. Tesla revolutionized the automotive market by proving electric vehicles could be fast, desirable, and practical, expanding into solar energy and battery storage systems.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2012-06-22 (Model S Deliveries Begin):</strong> Tesla begins deliveries of its Model S sedan, the vehicle that established Tesla's premium brand and manufacturing capabilities.</li>
+<li><strong>2020-08-31 (5-for-1 Stock Split):</strong> Tesla splits its stock 5-for-1 to handle the rapid run-up in its share price.</li>
+<li><strong>2020-12-21 (S&P 500 Inclusion):</strong> Tesla joins the S&P 500 index after consecutive quarters of profitability, triggering heavy institutional index-buying.</li>
+<li><strong>2022-10-27 (Twitter Acquisition closes):</strong> Elon Musk completes the purchase of Twitter, leading to selloffs of TSLA shares to fund the acquisition and concerns over executive focus.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -1243,7 +1235,7 @@ fig_amd.add_trace(go.Scatter(x=df_amd['date'], y=df_amd['bb_lower'], line=dict(c
 fig_amd.add_trace(go.Bar(x=df_amd['date'], y=df_amd['volume'], name='Volume', marker=dict(color=colors_amd, line=dict(width=0)), opacity=1.0, showlegend=False), row=2, col=1)
 
 # 5. Overlays (Historical Events)
-events_amd = [{'date': '2014-10-08', 'label': 'Dr. Lisa Su becomes CEO', 'desc': 'Dr. Lisa Su is appointed President and CEO, guiding AMD from near-bankruptcy to technological leadership and financial stability.'}, {'date': '2017-03-02', 'label': 'Zen architecture launch', 'desc': "AMD launches its new Ryzen desktop processors based on the Zen architecture, matching Intel's performance and triggering a multi-year market share recovery."}, {'date': '2022-02-14', 'label': 'Xilinx Acquisition closed', 'desc': 'AMD completes the acquisition of adaptive computing leader Xilinx for a record $49 billion, expanding its data center presence.'}]
+events_amd = [{'date': '2014-10-08', 'label': 'Dr. Lisa Su CEO', 'desc': 'Dr. Lisa Su is appointed President and CEO, guiding AMD from near-bankruptcy to technological leadership and financial stability.'}, {'date': '2017-03-02', 'label': 'Zen Architecture Launch', 'desc': "AMD launches its new Ryzen desktop processors based on the Zen architecture, matching Intel's performance and triggering a multi-year market share recovery."}, {'date': '2022-02-14', 'label': 'Xilinx Acquisition closed', 'desc': 'AMD completes the acquisition of adaptive computing leader Xilinx for a record $49 billion, expanding its data center presence.'}]
 
 for ev in events_amd:
     ev_date = pd.to_datetime(ev['date'])
@@ -1304,18 +1296,17 @@ fig_amd.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Advanced Micro Devices, Inc. Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Advanced Micro Devices, Inc. was founded in 1969 by Jerry Sanders and colleagues. Initially a second-source manufacturer of microchips, AMD became Intel's primary competitor in x86 microprocessors and a major graphics processing unit (GPU) supplier through its acquisition of ATI Technologies in 2006.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2014-10-08 (Dr. Lisa Su becomes CEO):</strong> Dr. Lisa Su is appointed President and CEO, guiding AMD from near-bankruptcy to technological leadership and financial stability.</li>
-      <li><strong>2017-03-02 (Zen architecture launch):</strong> AMD launches its new Ryzen desktop processors based on the Zen architecture, matching Intel's performance and triggering a multi-year market share recovery.</li>
-      <li><strong>2022-02-14 (Xilinx Acquisition closed):</strong> AMD completes the acquisition of adaptive computing leader Xilinx for a record $49 billion, expanding its data center presence.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Advanced Micro Devices, Inc. Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Advanced Micro Devices, Inc. was founded in 1969 by Jerry Sanders and colleagues. Initially a second-source manufacturer of microchips, AMD became Intel's primary competitor in x86 microprocessors and a major graphics processing unit (GPU) supplier through its acquisition of ATI Technologies in 2006.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2014-10-08 (Dr. Lisa Su CEO):</strong> Dr. Lisa Su is appointed President and CEO, guiding AMD from near-bankruptcy to technological leadership and financial stability.</li>
+<li><strong>2017-03-02 (Zen Architecture Launch):</strong> AMD launches its new Ryzen desktop processors based on the Zen architecture, matching Intel's performance and triggering a multi-year market share recovery.</li>
+<li><strong>2022-02-14 (Xilinx Acquisition closed):</strong> AMD completes the acquisition of adaptive computing leader Xilinx for a record $49 billion, expanding its data center presence.</li>
+</ul>
+</div>
 </details>
 :::
 
@@ -1449,18 +1440,17 @@ fig_nflx.show(config={'scrollZoom': True})
 </div>
 
 <details class="event-details">
-  <summary>🔍 Click to view Netflix, Inc. Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>Netflix, Inc. was founded in 1997 by Reed Hastings and Marc Randolph as a DVD-by-mail service. Netflix launched streaming media in 2007, pioneering subscription video-on-demand. It has expanded into one of the largest media production companies in the world, distributing original content globally.</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>
-      <li><strong>2013-02-01 (House of Cards launch):</strong> Netflix releases its first major original drama series, 'House of Cards', proving the viability of streaming-only original programming.</li>
-      <li><strong>2020-03-16 (COVID Lockdown surge):</strong> Pandemic lock-downs drive a historic wave of new signups and viewing hours, pushing Netflix to peak subscriber growth.</li>
-      <li><strong>2022-04-19 (First subscriber loss):</strong> Netflix reports a loss of 200,000 subscribers—its first quarterly decline in a decade—prompting a pivot to ad-supported plans and password-sharing crackdowns.</li>
-    </ul>
-  </div>
+<summary>🔍 Click to view Netflix, Inc. Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>Netflix, Inc. was founded in 1997 by Reed Hastings and Marc Randolph as a DVD-by-mail service. Netflix launched streaming media in 2007, pioneering subscription video-on-demand. It has expanded into one of the largest media production companies in the world, distributing original content globally.</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>
+<li><strong>2013-02-01 (House of Cards launch):</strong> Netflix releases its first major original drama series, 'House of Cards', proving the viability of streaming-only original programming.</li>
+<li><strong>2020-03-16 (COVID Lockdown surge):</strong> Pandemic lock-downs drive a historic wave of new signups and viewing hours, pushing Netflix to peak subscriber growth.</li>
+<li><strong>2022-04-19 (First subscriber loss):</strong> Netflix reports a loss of 200,000 subscribers—its first quarterly decline in a decade—prompting a pivot to ad-supported plans and password-sharing crackdowns.</li>
+</ul>
+</div>
 </details>
 :::
 

@@ -5,6 +5,8 @@ Stock Data Pipeline & Chart Generator
 This script automates the download, technical indicator enrichment, QMD creation,
 and Quarto rendering for the full list of 10 Nasdaq stocks, generating a single
 scrollable "Stock Indices" page with events overlays and dropdown explanations.
+All generated HTML elements are left-aligned to prevent Quarto Markdown parser
+errors where indented HTML is parsed as code blocks.
 """
 
 import os
@@ -41,7 +43,7 @@ STOCK_METADATA = {
         "origin": "Microsoft Corporation was founded in 1975 by Paul Allen and Bill Gates. It dominated the personal computer operating system market with MS-DOS and Windows. Under Satya Nadella, the company successfully pivoted to cloud computing, enterprise services, and artificial intelligence, positioning it as one of the world's most valuable corporations.",
         "events": [
             {"date": "2014-02-04", "label": "Nadella appointed CEO", "desc": "Satya Nadella is named CEO, succeeding Steve Ballmer. Nadella initiates a 'cloud-first, mobile-first' strategy, reviving Microsoft's market leadership."},
-            {"date": "2016-06-13", "label": "LinkedIn Acquisition", "desc": "Microsoft announces the acquisition of LinkedIn for $26.2 billion, expanding its enterprise network services."},
+            {"date": "2016-06-13", "label": "LinkedIn Acquisition", "desc": "Microsoft announces the acquisition of LinkedIn for $26.2 billion, expanding its network services."},
             {"date": "2023-01-23", "label": "OpenAI Partnership Boost", "desc": "Microsoft announces a multi-year, multi-billion dollar investment in OpenAI, accelerating the integration of generative AI into its Windows, Office, and Azure products."}
         ]
     },
@@ -66,7 +68,7 @@ STOCK_METADATA = {
         "events": [
             {"date": "2012-05-18", "label": "Facebook IPO", "desc": "Facebook goes public at $38 per share, in one of the largest tech IPOs in history, valuation initially peaking around $104 billion."},
             {"date": "2014-02-19", "label": "WhatsApp Acquisition", "desc": "Facebook announces the acquisition of mobile messaging app WhatsApp for $19 billion, cementing its mobile messaging leadership."},
-            {"date": "2021-10-28", "label": "Rebranding to Meta", "desc": "Mark Zuckerberg announces the corporate name change to Meta Platforms to signal a focus on building virtual environments."},
+            {"date": "2021-10-28", "label": "Rebranding to Meta", "desc": "Mark Zuckerberg announces the name change to Meta Platforms to signal a focus on building virtual environments."},
             {"date": "2022-11-09", "label": "Layoffs & Efficiency Pivot", "desc": "Meta announces its first mass layoff of 11,000 employees, initiating a transition to capital discipline and cost reductions, fueling a massive stock recovery."}
         ]
     },
@@ -90,8 +92,8 @@ STOCK_METADATA = {
     "amd": {
         "origin": "Advanced Micro Devices, Inc. was founded in 1969 by Jerry Sanders and colleagues. Initially a second-source manufacturer of microchips, AMD became Intel's primary competitor in x86 microprocessors and a major graphics processing unit (GPU) supplier through its acquisition of ATI Technologies in 2006.",
         "events": [
-            {"date": "2014-10-08", "label": "Dr. Lisa Su becomes CEO", "desc": "Dr. Lisa Su is appointed President and CEO, guiding AMD from near-bankruptcy to technological leadership and financial stability."},
-            {"date": "2017-03-02", "label": "Zen architecture launch", "desc": "AMD launches its new Ryzen desktop processors based on the Zen architecture, matching Intel's performance and triggering a multi-year market share recovery."},
+            {"date": "2014-10-08", "label": "Dr. Lisa Su CEO", "desc": "Dr. Lisa Su is appointed President and CEO, guiding AMD from near-bankruptcy to technological leadership and financial stability."},
+            {"date": "2017-03-02", "label": "Zen Architecture Launch", "desc": "AMD launches its new Ryzen desktop processors based on the Zen architecture, matching Intel's performance and triggering a multi-year market share recovery."},
             {"date": "2022-02-14", "label": "Xilinx Acquisition closed", "desc": "AMD completes the acquisition of adaptive computing leader Xilinx for a record $49 billion, expanding its data center presence."}
         ]
     },
@@ -260,8 +262,8 @@ format:
 ---
 
 <head>
-  <meta name="description" content="Interactive charting for multiple stock indices on a single scrollable page.">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Interactive charting for multiple stock indices on a single scrollable page.">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -280,24 +282,24 @@ format:
         # Format Python code cell
         python_cell = PYTHON_CELL_TEMPLATE.format(sym=sym, SYM=SYM, events_list=events_list_str)
         
-        # Format dropdown content
+        # Format dropdown content with zero leading spaces on every line to prevent Quarto code block parsing
         dropdown_html = f"""<details class="event-details">
-  <summary>🔍 Click to view {name} Origins & Major Price Action Drivers</summary>
-  <div class="event-content">
-    <h4>Company Origins</h4>
-    <p>{meta["origin"]}</p>
-    
-    <h4>Key Historical Milestones & Price Events</h4>
-    <ul>"""
+<summary>🔍 Click to view {name} Origins & Major Price Action Drivers</summary>
+<div class="event-content">
+<h4>Company Origins</h4>
+<p>{meta["origin"]}</p>
+<h4>Key Historical Milestones & Price Events</h4>
+<ul>"""
         
         for ev in meta["events"]:
-            dropdown_html += f"\n      <li><strong>{ev['date']} ({ev['label']}):</strong> {ev['desc']}</li>"
+            dropdown_html += f"\n<li><strong>{ev['date']} ({ev['label']}):</strong> {ev['desc']}</li>"
             
         dropdown_html += """
-    </ul>
-  </div>
+</ul>
+</div>
 </details>"""
         
+        # Format toolbar HTML with zero leading spaces on every line
         section = f"""
 ## {name} ({SYM})
 
@@ -459,7 +461,7 @@ def run_pipeline():
             
         processed_stocks.append(stock)
         
-    # 3. Clean up individual QMD pages to keep repository slim and prevent Quarto build overhead
+    # 3. Clean up old individual files
     clean_individual_pages()
     
     # 4. Create the unified scrollable page

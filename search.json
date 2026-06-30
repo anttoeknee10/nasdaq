@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "nvda_index.html",
-    "href": "nvda_index.html",
-    "title": "NVDA Advanced Charting",
-    "section": "",
-    "text": "NVDA NVIDIA Corp. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
-  },
-  {
     "objectID": "project_outline.html",
     "href": "project_outline.html",
     "title": "Tesla (TSLA) Historical Stock Data Analysis",
@@ -49,13 +42,6 @@
     "text": "Phase 5: Rendering & Publishing\n\nRender the document locally to a single self-contained HTML page:\nquarto render project_outline.qmd --to html\nMake it hostable via GitHub Pages, Netlify, or local distribution."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Market Dashboard Overview",
-    "section": "",
-    "text": "Market Overview\nWelcome to the Advanced Market Analysis Dashboard. This space is reserved for a future market-wide overview visualization.\nUse the navigation bar above to explore historical charts and technical indicators (SMA and Bollinger Bands) for individual stocks under Stock Indices."
-  },
-  {
     "objectID": "stock_indices.html#apple-inc.-aapl",
     "href": "stock_indices.html#apple-inc.-aapl",
     "title": "Stock Indices Interactive Charts",
@@ -63,18 +49,46 @@
     "text": "Apple Inc. (AAPL)\n\n\n\n\nAAPL Apple Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
   },
   {
-    "objectID": "stock_indices.html#microsoft-corp.-msft",
-    "href": "stock_indices.html#microsoft-corp.-msft",
+    "objectID": "stock_indices.html#starbucks-corporation-sbux",
+    "href": "stock_indices.html#starbucks-corporation-sbux",
     "title": "Stock Indices Interactive Charts",
-    "section": "Microsoft Corp. (MSFT)",
-    "text": "Microsoft Corp. (MSFT)\n\n\n\n\nMSFT Microsoft Corp. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+    "section": "Starbucks Corporation (SBUX)",
+    "text": "Starbucks Corporation (SBUX)\n\n\n\n\nSBUX Starbucks Corporation |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
   },
   {
-    "objectID": "stock_indices.html#nvidia-corp.-nvda",
-    "href": "stock_indices.html#nvidia-corp.-nvda",
+    "objectID": "stock_indices.html#microsoft-corporation-msft",
+    "href": "stock_indices.html#microsoft-corporation-msft",
     "title": "Stock Indices Interactive Charts",
-    "section": "NVIDIA Corp. (NVDA)",
-    "text": "NVIDIA Corp. (NVDA)\n\n\n\n\nNVDA NVIDIA Corp. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+    "section": "Microsoft Corporation (MSFT)",
+    "text": "Microsoft Corporation (MSFT)\n\n\n\n\nMSFT Microsoft Corporation |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  },
+  {
+    "objectID": "stock_indices.html#cisco-systems-inc.-csco",
+    "href": "stock_indices.html#cisco-systems-inc.-csco",
+    "title": "Stock Indices Interactive Charts",
+    "section": "Cisco Systems, Inc. (CSCO)",
+    "text": "Cisco Systems, Inc. (CSCO)\n\n\n\n\nCSCO Cisco Systems, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  },
+  {
+    "objectID": "stock_indices.html#qualcomm-incorporated-qcom",
+    "href": "stock_indices.html#qualcomm-incorporated-qcom",
+    "title": "Stock Indices Interactive Charts",
+    "section": "QUALCOMM Incorporated (QCOM)",
+    "text": "QUALCOMM Incorporated (QCOM)\n\n\n\n\nQCOM QUALCOMM Incorporated |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  },
+  {
+    "objectID": "stock_indices.html#meta-platforms-inc.-meta",
+    "href": "stock_indices.html#meta-platforms-inc.-meta",
+    "title": "Stock Indices Interactive Charts",
+    "section": "Meta Platforms, Inc. (META)",
+    "text": "Meta Platforms, Inc. (META)\n\n\n\n\nMETA Meta Platforms, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+  },
+  {
+    "objectID": "stock_indices.html#amazon.com-inc.-amzn",
+    "href": "stock_indices.html#amazon.com-inc.-amzn",
+    "title": "Stock Indices Interactive Charts",
+    "section": "Amazon.com, Inc. (AMZN)",
+    "text": "Amazon.com, Inc. (AMZN)\n\n\n\n\nAMZN Amazon.com, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
   },
   {
     "objectID": "stock_indices.html#tesla-inc.-tsla",
@@ -84,24 +98,24 @@
     "text": "Tesla, Inc. (TSLA)\n\n\n\n\nTSLA Tesla, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
   },
   {
-    "objectID": "msft_index.html",
-    "href": "msft_index.html",
-    "title": "MSFT Advanced Charting",
-    "section": "",
-    "text": "MSFT Microsoft Corp. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+    "objectID": "stock_indices.html#advanced-micro-devices-inc.-amd",
+    "href": "stock_indices.html#advanced-micro-devices-inc.-amd",
+    "title": "Stock Indices Interactive Charts",
+    "section": "Advanced Micro Devices, Inc. (AMD)",
+    "text": "Advanced Micro Devices, Inc. (AMD)\n\n\n\n\nAMD Advanced Micro Devices, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
   },
   {
-    "objectID": "aapl_index.html",
-    "href": "aapl_index.html",
-    "title": "AAPL Advanced Charting",
-    "section": "",
-    "text": "AAPL Apple Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+    "objectID": "stock_indices.html#netflix-inc.-nflx",
+    "href": "stock_indices.html#netflix-inc.-nflx",
+    "title": "Stock Indices Interactive Charts",
+    "section": "Netflix, Inc. (NFLX)",
+    "text": "Netflix, Inc. (NFLX)\n\n\n\n\nNFLX Netflix, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
   },
   {
-    "objectID": "tsla_index.html",
-    "href": "tsla_index.html",
-    "title": "TSLA Advanced Charting",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Market Dashboard Overview",
     "section": "",
-    "text": "TSLA Tesla, Inc. |\n\n\nSMA Lines\n\n\nBollinger Bands\n\n\nShow All\n\n\nPrice Only\n\n\n\n\n⛶ Full Screen"
+    "text": "Market Overview\nWelcome to the Advanced Market Analysis Dashboard. This space is reserved for a future market-wide overview visualization.\nUse the navigation bar above to explore historical charts and technical indicators (SMA and Bollinger Bands) for individual stocks under Stock Indices."
   }
 ]

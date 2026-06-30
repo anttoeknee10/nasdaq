@@ -11,15 +11,7 @@ website:
       - text: "Home"
         href: index.qmd
       - text: "Stock Indices"
-        menu:
-          - text: "Apple (AAPL)"
-            href: aapl_index.qmd
-          - text: "Microsoft (MSFT)"
-            href: msft_index.qmd
-          - text: "NVIDIA (NVDA)"
-            href: nvda_index.qmd
-          - text: "Tesla (TSLA)"
-            href: tsla_index.qmd
+        href: stock_indices.qmd
       - text: "Roadmap"
         href: project_outline.qmd
 

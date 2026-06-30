@@ -1,9 +1,138 @@
 ---
-title: "Market Dashboard Overview"
+title: "Market Performance & Concentration Dashboard"
+format:
+  html:
+    theme: [cosmo, theme.scss]
+    page-layout: full
+    self-contained: false
 ---
 
-# Market Overview
+<head>
+  <meta name="description" content="Magnificent Seven vs S&P 500 Equal Weight and Market-Cap Weight Index comparison dashboard.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
 
-Welcome to the Advanced Market Analysis Dashboard. This space is reserved for a future market-wide overview visualization.
+<body>
 
-Use the navigation bar above to explore historical charts and technical indicators (SMA and Bollinger Bands) for individual stocks under **Stock Indices**.
+## Market Concentration: Magnificent Seven vs. Broad Market (Base: Jan 2020 = 100%)
+
+::: {.column-screen}
+<div id="chart-container-m7" class="chart-wrapper">
+<div class="chart-toolbar">
+<div class="toolbar-left">
+<span class="ticker-badge">M7 vs RSP</span>
+<span class="ticker-title">Mega-Cap Tech Concentration vs. Equal-Weight S&P 500</span>
+<span class="divider">|</span>
+<span style="font-size: 13px; color: #8a90a6; font-family: 'Inter', sans-serif;">Comparing tech giants to the average stock</span>
+</div>
+<button id="fullscreen-btn-m7" onclick="toggleFullscreen()">⛶ Full Screen</button>
+</div>
+
+```{python}
+#| label: m7-comparison-chart
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import plotly.graph_objects as go
+
+# Load M7 dataset
+df = pd.read_csv("../downloads/m7_comparison.csv")
+df['date'] = pd.to_datetime(df['date'])
+
+fig = go.Figure()
+
+# Add M7 Index line (Vibrant Neon Green)
+fig.add_trace(go.Scatter(
+    x=df['date'], y=df['m7_index'],
+    mode='lines',
+    line=dict(color='#00e676', width=2.5),
+    name='Magnificent Seven Index (Equal Weight)'
+))
+
+# Add SPY line (Bright Blue)
+fig.add_trace(go.Scatter(
+    x=df['date'], y=df['spy'],
+    mode='lines',
+    line=dict(color='#2962ff', width=2),
+    name='S&P 500 ETF (SPY - Market-Cap Weighted)'
+))
+
+# Add RSP line (Vibrant Amber/Orange dashed)
+fig.add_trace(go.Scatter(
+    x=df['date'], y=df['rsp'],
+    mode='lines',
+    line=dict(color='#ff9800', width=1.5, dash='dash'),
+    name='S&P 500 Equal Weight ETF (RSP - Average Stock)'
+))
+
+fig.update_layout(
+    template='plotly_dark',
+    paper_bgcolor='#0c101b',  # Matching deep slate-blue background
+    plot_bgcolor='#0c101b',
+    autosize=True,
+    dragmode='pan',
+    margin=dict(t=45, b=40, l=60, r=40),
+    xaxis=dict(
+        rangeslider=dict(visible=False),
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1Y", step="year", stepmode="backward"),
+                dict(count=3, label="3Y", step="year", stepmode="backward"),
+                dict(count=5, label="5Y", step="year", stepmode="backward"),
+                dict(step="all", label="MAX")
+            ]),
+            bgcolor='#141824',
+            activecolor='#2962ff',
+            font=dict(color='#d1d4dc', size=11),
+            bordercolor='#202637',
+            borderwidth=1
+        )
+    ),
+    yaxis=dict(
+        gridcolor='#202637',
+        zerolinecolor='#202637',
+        ticksuffix='%',
+        title='Performance Index (Jan 2, 2020 = 100%)',
+        fixedrange=True
+    ),
+    legend=dict(
+        orientation='h',
+        yanchor='bottom',
+        y=1.02,
+        xanchor='right',
+        x=1,
+        bgcolor='rgba(0,0,0,0)'
+    )
+)
+
+fig.update_xaxes(
+    minallowed='2020-01-02',
+    maxallowed='2026-07-05'
+)
+
+fig.show(config={'scrollZoom': True})
+```
+
+</div>
+:::
+
+<script>
+function toggleFullscreen() {
+  var el = document.getElementById('chart-container-m7');
+  el.classList.toggle('fullscreen');
+  var btn = document.getElementById('fullscreen-btn-m7');
+  if (el.classList.contains('fullscreen')) {
+    btn.innerHTML = "🗖 Exit Full Screen";
+  } else {
+    btn.innerHTML = "⛶ Full Screen";
+  }
+  // Let Plotly adjust to new size (after transition)
+  setTimeout(function() {
+    window.dispatchEvent(new Event('resize'));
+  }, 150);
+}
+</script>
+
+</body>

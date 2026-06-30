@@ -135,4 +135,32 @@ function toggleFullscreen() {
 }
 </script>
 
+<div class="explanation-container" style="margin-top: 40px; padding: 25px; background-color: #141824; border-radius: 8px; border: 1px solid #202637; font-family: 'Inter', sans-serif; line-height: 1.7; color: #d1d4dc;">
+  <h3 style="margin-top: 0; color: #ffffff; font-family: 'Outfit', sans-serif; font-size: 1.4rem;">Understanding the Indices</h3>
+  <ul style="padding-left: 20px; margin-bottom: 25px; list-style-type: square;">
+    <li style="margin-bottom: 12px;">
+      <strong style="color: #00e676;">Magnificent Seven Index (Equal Weight):</strong> Tracks the equal-weighted average performance of the market's leading mega-cap tech giants: Microsoft (MSFT), Apple (AAPL), NVIDIA (NVDA), Alphabet (GOOGL), Amazon (AMZN), Meta Platforms (META), and Tesla (TSLA).
+    </li>
+    <li style="margin-bottom: 12px;">
+      <strong style="color: #2962ff;">S&P 500 ETF (SPY):</strong> The standard market-cap-weighted benchmark. In this structure, larger companies exert greater influence over the index's direction, reflecting the performance of the US market weighted heavily by its largest components.
+    </li>
+    <li style="margin-bottom: 12px;">
+      <strong style="color: #ff9800;">S&P 500 Equal Weight ETF (RSP):</strong> Allocates an equal weighting to all 500 companies in the S&P 500. This represents the performance of the "average stock" and strips away the dominant impact of mega-cap leaders.
+    </li>
+  </ul>
+
+  <h3 style="color: #ffffff; font-family: 'Outfit', sans-serif; font-size: 1.4rem;">Market Health & Future Outlook</h3>
+  <p style="margin-bottom: 15px;">
+    This chart highlights a historic divergence: the Magnificent Seven has outpaced the equal-weight market by over 700% since 2020. This indicates extreme market concentration, where broad index gains are heavily reliant on a small group of tech giants. For the future, this level of concentration represents both an opportunity and a risk:
+  </p>
+  <ol style="padding-left: 20px; margin-bottom: 0;">
+    <li style="margin-bottom: 12px;">
+      <strong>Systemic Concentration Risk:</strong> Because the standard S&P 500 (SPY) is cap-weighted, any weakness or correction in the Magnificent Seven will disproportionately drag down the entire broad market index, even if the remaining 493 stocks remain stable.
+    </li>
+    <li style="margin-bottom: 12px;">
+      <strong>Breadth Catch-up Opportunity:</strong> A healthy, long-term bull market relies on broad participation. If economic indicators stabilize, capital may rotate out of highly valued tech leaders and spread into the broader market, allowing RSP to catch up to SPY. Alternatively, a market-wide correction may occur if the growth expectations for these seven mega-cap tech giants fail to materialize.
+    </li>
+  </ol>
+</div>
+
 </body>

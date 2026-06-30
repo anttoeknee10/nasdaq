@@ -139,6 +139,7 @@ fig_aapl.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Apple Inc. Origins & Major Price Action Drivers</summary>
@@ -154,7 +155,6 @@ fig_aapl.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -284,6 +284,7 @@ fig_sbux.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Starbucks Corporation Origins & Major Price Action Drivers</summary>
@@ -298,7 +299,6 @@ fig_sbux.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -428,6 +428,7 @@ fig_msft.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Microsoft Corporation Origins & Major Price Action Drivers</summary>
@@ -442,7 +443,6 @@ fig_msft.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -572,6 +572,7 @@ fig_csco.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Cisco Systems, Inc. Origins & Major Price Action Drivers</summary>
@@ -586,7 +587,6 @@ fig_csco.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -716,6 +716,7 @@ fig_qcom.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view QUALCOMM Incorporated Origins & Major Price Action Drivers</summary>
@@ -730,7 +731,6 @@ fig_qcom.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -860,6 +860,7 @@ fig_meta.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Meta Platforms, Inc. Origins & Major Price Action Drivers</summary>
@@ -875,7 +876,6 @@ fig_meta.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -1005,6 +1005,7 @@ fig_amzn.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Amazon.com, Inc. Origins & Major Price Action Drivers</summary>
@@ -1019,7 +1020,6 @@ fig_amzn.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -1149,6 +1149,7 @@ fig_tsla.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Tesla, Inc. Origins & Major Price Action Drivers</summary>
@@ -1164,7 +1165,6 @@ fig_tsla.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -1294,6 +1294,7 @@ fig_amd.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Advanced Micro Devices, Inc. Origins & Major Price Action Drivers</summary>
@@ -1308,7 +1309,6 @@ fig_amd.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 
@@ -1438,6 +1438,7 @@ fig_nflx.show(config={'scrollZoom': True})
 ```
 
 </div>
+:::
 
 <details class="event-details">
 <summary>🔍 Click to view Netflix, Inc. Origins & Major Price Action Drivers</summary>
@@ -1452,7 +1453,6 @@ fig_nflx.show(config={'scrollZoom': True})
 </ul>
 </div>
 </details>
-:::
 
 <hr/>
 

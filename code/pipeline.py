@@ -323,9 +323,9 @@ format:
 {python_cell}
 
 </div>
+:::
 
 {dropdown_html}
-:::
 
 <hr/>
 """
